@@ -15,8 +15,8 @@ jobs:
           fetch-depth: 0
       - run: git remote add upstream https://github.com/mattpocock/skills.git
       - run: git fetch upstream main
-      - run: git config user.name "github-actions[bot]"
-      - run: git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: git config user.name "mantrandev"
+      - run: git config user.email "mantrandev@gmail.com"
       - run: git merge --no-edit upstream/main
       - run: ./scripts/sync-codex-plugin.sh
       - run: git add .agents/plugins/marketplace.json plugins/mattpocock-skills
