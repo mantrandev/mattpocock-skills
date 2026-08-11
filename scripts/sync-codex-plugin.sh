@@ -24,7 +24,12 @@ done
 mkdir -p "$target_dir"
 rsync -a --delete "$staging_dir/" "$target_dir/"
 
-version="$(jq -r '.version' "$claude_manifest")"
+base_version="$(jq -r '.version' "$claude_manifest")"
+base_version="${base_version%%+*}"
+if ! revision="$(git -C "$repo_dir" rev-parse --short=12 upstream/main 2>/dev/null)"; then
+  revision="$(git -C "$repo_dir" rev-parse --short=12 HEAD)"
+fi
+version="$base_version+codex.$revision"
 jq --arg version "$version" '.version = $version' "$codex_manifest" > "$temp_manifest"
 mv "$temp_manifest" "$codex_manifest"
 

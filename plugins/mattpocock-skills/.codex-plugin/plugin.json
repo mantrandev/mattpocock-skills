@@ -1,6 +1,6 @@
 {
   "name": "mattpocock-skills",
-  "version": "1.2.3",
+  "version": "1.2.3+codex.84fdeffd12f2",
   "description": "Matt Pocock's agent skills for real engineering, packaged as a native Codex plugin.",
   "author": {
     "name": "Matt Pocock",
