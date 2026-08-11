@@ -1,4 +1,4 @@
-# Codex plugin
+# Claude thì cài như matt, Codex thì cài qua man-plugin nhé
 
 This fork packages Matt Pocock's 25 promoted skills as a native Codex plugin.
 
