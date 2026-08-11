@@ -1,3 +1,21 @@
+# Codex plugin
+
+This fork packages Matt Pocock's 25 promoted skills as a native Codex plugin.
+
+```bash
+codex plugin marketplace add mantrandev/mattpocock-skills --ref main
+codex plugin add mattpocock-skills@mantrandev-mattpocock
+```
+
+To install an update after this fork has been synchronized with upstream:
+
+```bash
+codex plugin marketplace upgrade mantrandev-mattpocock
+codex plugin add mattpocock-skills@mantrandev-mattpocock
+```
+
+The original Matt Pocock README is preserved below.
+
 <p>
   <a href="https://www.aihero.dev/s/skills-newsletter">
     <picture>
