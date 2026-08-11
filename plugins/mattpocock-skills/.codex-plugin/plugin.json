@@ -1,0 +1,40 @@
+{
+  "name": "mattpocock-skills",
+  "version": "1.2.3",
+  "description": "Matt Pocock's agent skills for real engineering, packaged as a native Codex plugin.",
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://www.aihero.dev"
+  },
+  "homepage": "https://www.aihero.dev/s/skills-newsletter",
+  "repository": "https://github.com/mantrandev/mattpocock-skills",
+  "license": "MIT",
+  "keywords": [
+    "engineering",
+    "skills",
+    "tdd",
+    "code-review",
+    "grilling",
+    "domain-modeling",
+    "productivity"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Matt Pocock Skills",
+    "shortDescription": "Composable engineering workflows for Codex.",
+    "longDescription": "Twenty-five skills for planning, implementation, TDD, debugging, review, architecture, and productive engineering workflows.",
+    "developerName": "Matt Pocock",
+    "category": "Engineering",
+    "capabilities": [
+      "Planning",
+      "Engineering",
+      "Review"
+    ],
+    "websiteURL": "https://www.aihero.dev/s/skills-newsletter",
+    "defaultPrompt": [
+      "Which Matt Pocock skill fits this task?",
+      "Turn this discussion into an implementation spec.",
+      "Review this change using the Matt Pocock workflow."
+    ]
+  }
+}

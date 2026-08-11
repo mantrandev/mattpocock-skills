@@ -1,0 +1,20 @@
+{
+  "name": "mantrandev-mattpocock",
+  "interface": {
+    "displayName": "Man Tran Dev"
+  },
+  "plugins": [
+    {
+      "name": "mattpocock-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/mattpocock-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    }
+  ]
+}
