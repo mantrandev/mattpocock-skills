@@ -1,0 +1,30 @@
+name: Sync upstream and Codex plugin
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git remote add upstream https://github.com/mattpocock/skills.git
+      - run: git fetch upstream main
+      - run: git config user.name "github-actions[bot]"
+      - run: git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: git merge --no-edit upstream/main
+      - run: ./scripts/sync-codex-plugin.sh
+      - run: git add .agents/plugins/marketplace.json plugins/mattpocock-skills
+      - run: |
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "chore(codex): sync plugin"
+      - run: git push origin main
