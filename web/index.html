@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matt Pocock Skills — Vietsub toàn bộ</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231B2A41'/%3E%3Cpath d='M32 32L15 15M32 32L49 15M32 32L15 49M32 32L49 49' stroke='%23F4B08C' stroke-width='5'/%3E%3Crect x='25' y='25' width='14' height='14' fill='%23C1440E'/%3E%3Crect x='10' y='10' width='10' height='10' fill='%23FFFFFF'/%3E%3Crect x='44' y='10' width='10' height='10' fill='%23FFFFFF'/%3E%3Crect x='10' y='44' width='10' height='10' fill='%23FFFFFF'/%3E%3Crect x='44' y='44' width='10' height='10' fill='%23FFFFFF'/%3E%3C/svg%3E">
+<style>
+  
+  :root{
+    --paper:#EDF0F4; --grid:#C9D2DC; --ink:#1B2A41; --ink-soft:#4A5A6E;
+    --rust:#C1440E; --rust-soft:#FBE9E0; --peach:#F4B08C; --white:#FFF;
+    --mut:#E7EAEF; --panel:#F4F6F8; --steel:#9AA6B4;
+    --good:#2E7D5B; --warn:#9A6A1F;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;min-height:100%}
+  body{
+    font-family:var(--mono);background:var(--paper);color:var(--ink);padding:16px;
+    background-image:linear-gradient(var(--grid) .5px,transparent .5px),linear-gradient(90deg,var(--grid) .5px,transparent .5px);
+    background-size:24px 24px;
+  }
+  .sheet{width:100%;max-width:none;margin:0;border:1.5px solid var(--ink);outline:.5px solid var(--ink);
+         outline-offset:5px;padding:22px;background:rgba(237,240,244,.6)}
+  .content{width:100%;max-width:none;min-width:0}
+  
+  h1{font-size:clamp(17px,3.4vw,24px);letter-spacing:.5px}
+  .sub{font-size:12px;color:var(--rust);font-weight:700;margin:4px 0 14px}
+  .meta{display:flex;flex-wrap:wrap;gap:5px 18px;font-size:10.5px;color:var(--ink-soft);
+        border-top:1px solid var(--grid);border-bottom:1px solid var(--grid);padding:9px 0;margin-bottom:16px}
+  .meta b{color:var(--ink);font-weight:700;letter-spacing:1px}
+  .meta .ok{color:var(--good)} .meta .hot{color:var(--rust)}
+  
+  section{margin-top:22px}
+  h2{font-size:14px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px;
+     padding-bottom:6px;border-bottom:1.2px solid var(--ink)}
+  h3{font-size:13.5px;margin:14px 0 7px}
+  p{font-size:12px;line-height:1.7;color:var(--ink-soft);margin:9px 0}
+  p b,li b,td b{color:var(--ink);font-weight:700}
+  a{color:var(--rust)}
+  .k{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ink-soft)}
+  
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .tab{font-family:var(--mono);font-size:11.5px;padding:8px 12px;cursor:pointer;
+       background:var(--white);border:1.2px solid var(--ink);color:var(--ink);transition:all .15s}
+  .tab:hover{box-shadow:3px 3px 0 var(--ink);transform:translateY(-2px)}
+  .tab.active{background:var(--ink);color:var(--white)}
+  .tab.active:hover{box-shadow:none;transform:none}
+  .tab.active .n{color:var(--peach)}
+  .tab .n{font-weight:700;margin-right:6px}
+  
+  .stage-wrap{border:1.2px solid var(--ink);background:var(--white);position:relative}
+  .stage-wrap svg{display:block;width:100%;height:auto}
+  .lanehdr{font-size:13px;font-weight:700;letter-spacing:1px}
+  .divider{stroke:var(--grid);stroke-width:1.2;stroke-dasharray:4 4}
+  .node rect{fill:var(--white);stroke:var(--ink);stroke-width:1.2;transition:all .3s}
+  .node .lbl{font-size:12px;font-weight:700;fill:var(--ink)}
+  .node .sub2{font-size:9.5px;fill:var(--ink-soft)}
+  .node.active rect{fill:var(--rust-soft);stroke:var(--rust);stroke-width:2}
+  .node.active .lbl{fill:var(--rust)}
+  .edge{stroke:var(--ink-soft);stroke-width:1.2;fill:none}
+  
+  .panel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .desc,.mind{border:1.2px solid var(--ink);background:var(--white);padding:14px;min-height:120px}
+  .desc{border-color:var(--ink-soft)}
+  .mind{border-color:var(--rust)}
+  .mind .k{color:var(--rust)}
+  .desc h3,.mind h3{font-size:13.5px;margin:6px 0 8px}
+  .desc p{color:var(--ink-soft)} .mind p{color:var(--ink)}
+  .cost{margin-top:10px;font-size:11px;font-weight:700}
+  .desc .cost{color:var(--ink)} .mind .cost{color:var(--rust)}
+  
+  .flag{margin-top:8px;font-size:11px;line-height:1.65;font-weight:700;padding:7px 10px;border:1px dashed;
+        color:var(--ink);border-color:var(--steel);background:var(--panel)}
+  .flag.hot{color:var(--rust);border-color:var(--rust);background:var(--rust-soft)}
+  .flag.ok{color:var(--good);border-color:var(--good);background:var(--white)}
+  
+  .tiles{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+  .tile{flex:1 1 150px;border:1.2px solid var(--ink);background:var(--white);padding:11px 13px}
+  .tile .k{display:block;margin-bottom:4px}
+  .tile .v{font-size:21px;font-weight:700;color:var(--ink);line-height:1.2}
+  .tile .u{font-size:10.5px;color:var(--ink-soft)}
+  .tile.hot{border-color:var(--rust)} .tile.hot .v{color:var(--rust)}
+  
+  .bar{margin-bottom:13px}
+  .bar .lbl{display:flex;justify-content:space-between;gap:12px;font-size:11.5px;margin-bottom:4px}
+  .bar .val{font-weight:700}
+  .bar .track{height:13px;background:var(--mut);border:1px solid var(--grid)}
+  .bar .fill{height:100%;background:var(--ink);transition:width .2s}
+  .bar.hot .fill{background:var(--rust)}
+  
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:11.5px}
+  thead th{text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);
+           font-weight:700;padding:0 12px 7px 0;border-bottom:1.2px solid var(--ink)}
+  tbody td{padding:9px 12px 9px 0;border-bottom:1px solid var(--grid);vertical-align:top;color:var(--ink-soft)}
+  tbody tr:hover td{background:var(--white);color:var(--ink)}
+  thead th:last-child,tbody td:last-child{padding-right:0}
+  .x{color:var(--rust);font-weight:700} .yes{color:var(--good);font-weight:700}
+  
+  pre{background:var(--white);border:1.2px solid var(--ink-soft);padding:12px 14px;overflow-x:auto;margin:12px 0}
+  code{font-family:var(--mono);font-size:11.5px}
+  pre code{color:var(--ink);line-height:1.65}
+  p code,li code,td code{background:var(--white);border:1px solid var(--grid);padding:1px 5px;font-size:11px}
+  .c-red{color:var(--rust)} .c-grn{color:var(--good)} .c-amb{color:var(--warn)}
+  .c-blu{color:var(--ink-soft)} .c-dim{color:var(--steel)}
+  
+  ol.steps{list-style:none;counter-reset:s;margin:12px 0}
+  ol.steps li{counter-increment:s;position:relative;padding-left:26px;margin-bottom:10px;
+              font-size:11.5px;line-height:1.65;color:var(--ink-soft)}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:17px;height:17px;line-height:17px;
+       text-align:center;border-radius:50%;background:var(--ink);color:var(--white);font-size:10px;font-weight:700}
+  ol.steps li b{display:block;color:var(--ink)}
+  
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  .lg{border:1.2px solid var(--steel);padding:12px}
+  .lg.hot{border-color:var(--rust)}
+  .lg h4{font-size:12px;letter-spacing:1px;margin-bottom:8px;color:var(--ink-soft)}
+  .lg.hot h4{color:var(--rust)}
+  .lg .item{font-size:11.5px;line-height:1.55;margin-bottom:7px;padding-left:22px;position:relative;color:var(--ink-soft)}
+  .lg .item b{position:absolute;left:0;top:0;width:16px;height:16px;line-height:16px;text-align:center;
+              border-radius:50%;font-size:10px;color:var(--white);background:var(--steel)}
+  .lg.hot .item b{background:var(--peach);color:var(--ink)}
+  .lg .item.on{color:var(--ink);font-weight:600}
+  .lg .item.on b{background:var(--rust);color:var(--white)}
+  
+  .controls{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+  button{font-family:var(--mono);font-size:12px;padding:8px 16px;cursor:pointer;
+         background:var(--ink);color:var(--white);border:none;transition:all .15s}
+  button:hover{background:var(--rust)}
+  button.ghost{background:var(--white);color:var(--ink);border:1.2px solid var(--ink)}
+  button.ghost:hover{box-shadow:3px 3px 0 var(--ink)}
+  .dots{display:flex;gap:5px;margin-left:auto}
+  .dot{width:9px;height:9px;border:1px solid var(--ink);background:var(--white);cursor:pointer}
+  .dot.on{background:var(--rust);border-color:var(--rust)}
+  .dot.past{background:var(--ink-soft);border-color:var(--ink-soft)}
+  
+  .foot{font-size:10px;color:var(--ink-soft);margin-top:16px;line-height:1.7;
+        border-top:1px solid var(--grid);padding-top:10px}
+  @media(max-width:660px){body{padding:8px}.sheet{padding:14px}.panel,.legend{grid-template-columns:1fr}}
+  .app-tools{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:18px 0 12px}
+  .search-box{flex:1 1 320px}
+  .search-box label{display:block;margin-bottom:6px}
+  .search-box input{width:100%;font-family:var(--mono);font-size:12px;line-height:1.4;color:var(--ink);background:var(--white);border:1.2px solid var(--ink);padding:12px 14px;outline:none;transition:border-color .15s,box-shadow .15s,transform .15s}
+  .search-box input:focus{border-color:var(--rust);box-shadow:3px 3px 0 var(--ink);transform:translateY(-2px)}
+  .skill-search{margin-bottom:18px}
+  .table-wrap{width:100%;overflow-x:auto;border-top:0}
+  .skill-table{margin:0;table-layout:fixed;border-collapse:separate;border-spacing:0 8px}
+  .skill-table thead th{padding:0 16px 8px}
+  .skill-table thead th:last-child{text-align:right}
+  .skill-table th:nth-child(1){width:24%}
+  .skill-table th:nth-child(2){width:42%}
+  .skill-table th:nth-child(3){width:34%}
+  .skill-table tbody tr[data-name]{cursor:pointer;transition:transform .15s,box-shadow .15s}
+  .skill-table tbody tr[data-name] td{padding:14px 16px;vertical-align:middle;background:rgba(255,255,255,.48);border-top:1px solid var(--grid);border-bottom:1px solid var(--grid)}
+  .skill-table tbody tr[data-name] td:first-child{border-left:1px solid var(--grid)}
+  .skill-table tbody tr[data-name] td:last-child{border-right:1px solid var(--grid);text-align:right}
+  .skill-table tbody tr[data-name]:hover{box-shadow:3px 3px 0 var(--ink);transform:translateY(-2px)}
+  .skill-table tbody tr[data-name]:hover td{background:var(--white);border-color:var(--ink)}
+  .skill-table tbody tr.selected:hover{box-shadow:none;transform:none}
+  .skill-table tbody tr.selected td,.skill-table tbody tr.selected:hover td{background:var(--rust-soft);color:var(--ink);border-color:var(--rust)}
+  .skill-table tbody tr.selected .open-skill{background:var(--rust)}
+  .skill-name{display:block;color:var(--ink);font-weight:700;font-size:12px;line-height:1.35;margin-bottom:3px}
+  .skill-vi{display:block;color:var(--rust);font-size:10.5px;line-height:1.4}
+  .skill-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .tag{display:inline-block;border:1px solid var(--steel);background:var(--panel);color:var(--ink-soft);padding:3px 6px;font-size:9px;line-height:1.2;letter-spacing:.5px;text-transform:uppercase}
+  .tag.hot{border-color:var(--rust);background:var(--rust-soft);color:var(--rust)}
+  .open-skill{min-width:126px;padding:8px 12px;font-size:10.5px}
+  .result-count{font-size:10.5px;color:var(--ink-soft);white-space:nowrap;padding-bottom:10px}
+  .detail-panel{grid-template-columns:250px minmax(0,1fr);gap:12px}
+  .detail-panel .desc{min-height:0;padding:16px}
+  .detail-panel .mind{min-width:0;max-height:64vh;overflow:auto;background:var(--white);padding:16px}
+  .detail-panel .mind h3{margin-top:18px;padding-bottom:5px;border-bottom:1px solid var(--grid)}
+  .detail-panel .mind h3:first-child{margin-top:4px}
+  .detail-panel .mind ul{margin:8px 0 10px 20px}
+  .detail-panel .mind li{font-size:11.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:5px}
+  .detail-panel .mind ol.steps{margin-top:8px}
+  .detail-actions{margin-top:14px}
+  .inline-detail-row td{padding:0;border-bottom:0;background:transparent!important;transition:border-color .2s ease}
+  .inline-detail-row .panel{margin-top:0}
+  .detail-reveal{display:grid;grid-template-rows:0fr;opacity:0;transform:translateY(-4px);transition:grid-template-rows .28s cubic-bezier(.2,.8,.2,1),opacity .18s ease,transform .28s cubic-bezier(.2,.8,.2,1)}
+  .detail-reveal-inner{min-height:0;overflow:hidden}
+  .detail-frame{padding:0 0 10px}
+  .inline-detail-row.open td{border-bottom:1.2px solid var(--rust)}
+  .inline-detail-row.open .detail-reveal{grid-template-rows:1fr;opacity:1;transform:translateY(0)}
+  .empty{display:none}
+  .empty.show{display:block}
+  [hidden]{display:none!important}
+  .view-tabs{margin:16px 0 4px;padding-bottom:10px;border-bottom:1.2px solid var(--ink)}
+  .term-link{display:inline;font:inherit;font-weight:700;color:var(--rust);background:transparent;border:0;border-bottom:1px dashed var(--rust);padding:0;cursor:pointer}
+  .term-link:hover{color:var(--rust);background:var(--rust-soft);box-shadow:none;transform:none}
+  .glossary-table{table-layout:fixed}
+  .glossary-table th:nth-child(1){width:22%}
+  .glossary-table th:nth-child(2){width:56%}
+  .glossary-table th:nth-child(3){width:22%}
+  .glossary-table tbody tr{scroll-margin-top:12px}
+  .glossary-table tbody tr.focused td{background:var(--rust-soft);color:var(--ink);border-bottom-color:var(--rust)}
+  .glossary-term{display:block;font-weight:700;color:var(--rust);font-size:12px}
+  .glossary-aliases{display:block;margin-top:4px;font-size:9.5px;color:var(--ink-soft)}
+  .product-summary{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+  .product-map-wrap{margin-top:14px;overflow-x:auto}
+  .product-map{display:block;width:100%;min-width:1180px;height:auto;background:var(--white)}
+  .map-root{fill:var(--ink);stroke:var(--ink);stroke-width:1.5}
+  .map-root-title{fill:var(--white);font-size:15px;font-weight:700;letter-spacing:1px;text-anchor:middle}
+  .map-root-sub{fill:var(--peach);font-size:9px;text-anchor:middle}
+  .map-phase-shell,.map-support-shell{fill:rgba(237,240,244,.58);stroke:var(--ink);stroke-width:1.2}
+  .map-phase-head{fill:var(--ink)}
+  .map-phase-title{fill:var(--white);font-size:11px;font-weight:700;letter-spacing:.8px}
+  .map-phase-index{fill:var(--peach);font-size:10px;font-weight:700}
+  .map-support-title{fill:var(--ink);font-size:10.5px;font-weight:700;letter-spacing:.7px}
+  .map-skill{cursor:pointer}
+  .map-skill rect{fill:var(--white);stroke:var(--ink-soft);stroke-width:1;transition:fill .15s ease,stroke .15s ease,transform .15s ease}
+  .map-skill.manual rect{stroke-dasharray:4 3}
+  .map-skill text{fill:var(--ink);font-size:9.5px;font-weight:700;pointer-events:none}
+  .map-skill:hover rect,.map-skill:focus-visible rect{fill:var(--rust-soft);stroke:var(--rust);stroke-width:2;transform:translate(-1px,-1px)}
+  .map-branch-edge{fill:none;stroke:var(--ink-soft);stroke-width:1.1}
+  .map-main-edge{fill:none;stroke:var(--ink);stroke-width:1.5;marker-end:url(#mapArrow)}
+  .map-support-edge{fill:none;stroke:var(--steel);stroke-width:1;stroke-dasharray:4 4}
+  .map-feedback-edge{fill:none;stroke:var(--rust);stroke-width:1.5;stroke-dasharray:6 4;marker-end:url(#mapArrowRust)}
+  .map-edge-label{fill:var(--rust);font-size:9px;font-weight:700;letter-spacing:.8px}
+  .map-mode-sample{display:inline-block;width:28px;height:12px;margin-right:8px;vertical-align:-2px;background:var(--white);border:1.2px solid var(--ink)}
+  .map-mode-sample.manual{border-style:dashed}
+  #skillsView:not([hidden]),#productFlowView:not([hidden]),#glossaryView:not([hidden]){animation:view-in .2s cubic-bezier(.2,.8,.2,1)}
+  @keyframes view-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:820px){
+    .detail-panel{grid-template-columns:1fr}
+    .detail-panel .mind{max-height:none}
+    .product-summary{grid-template-columns:1fr}
+    .skill-table,.skill-table tbody,.skill-table tr,.skill-table td{display:block;width:100%}
+    .skill-table thead{display:none}
+    .skill-table tbody tr[data-name]{border:1.2px solid var(--ink);background:var(--white);margin:10px 0;padding:12px}
+    .skill-table tbody tr.selected{border-color:var(--rust)}
+    .skill-table tbody tr[data-name] td{border:0!important;padding:6px 0;background:transparent!important;text-align:left}
+    .skill-table tbody td::before{content:attr(data-label);display:block;color:var(--ink-soft);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+    .skill-table tbody tr.inline-detail-row{border:0;background:transparent;padding:0;margin:0}
+    .skill-table tbody tr.inline-detail-row.open{margin-bottom:16px}
+    .inline-detail-row td::before{display:none!important}
+    .glossary-table,.glossary-table tbody,.glossary-table tr,.glossary-table td{display:block;width:100%}
+    .glossary-table thead{display:none}
+    .glossary-table tbody tr{border:1.2px solid var(--ink);background:var(--white);margin:10px 0;padding:10px}
+    .glossary-table tbody tr.focused{border-color:var(--rust)}
+    .glossary-table tbody td{border:0;padding:5px 0}
+    .glossary-table tbody td::before{content:attr(data-label);display:block;color:var(--ink-soft);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+    .table-wrap{overflow:visible;border-top:0}
+  }
+  @media(max-width:660px){
+    .meta span,.sub,.foot{min-width:0;overflow-wrap:anywhere}
+    .result-count{white-space:normal}
+    .tile{min-width:0;flex-basis:140px}
+    .tab{white-space:normal}
+  }
+  .term-tip{position:fixed;top:0;left:0;z-index:60;max-width:min(340px,calc(100vw - 24px));
+            padding:10px 12px;background:var(--white);border:1.2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+            font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--ink-soft);
+            pointer-events:none}
+  .term-tip[hidden]{display:none}
+  .term-tip b{display:block;font-size:11.5px;color:var(--rust);letter-spacing:.5px;margin-bottom:5px}
+  .term-tip .tip-skills{display:block;margin-top:7px;padding-top:6px;border-top:1px solid var(--grid);
+                        font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--steel)}
+  .term-link:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+  @media(hover:none){.term-tip{display:none!important}}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+<main class="content">
+  <h1>Matt Pocock Skills · Vietsub toàn bộ</h1>
+  <div class="sub">Chọn một skill trong bảng để xem mục tiêu, workflow, đầu ra và ràng buộc bằng tiếng Việt.</div>
+  <div class="meta">
+    <span><b>STATUS</b> <span class="ok">37/37 đã đối chiếu</span></span>
+    <span><b>SOURCE</b> skills/SKILL.md</span>
+    <span><b>LANG</b> tiếng Việt</span>
+    <span><b>MODE</b> self-contained</span>
+  </div>
+  <div class="tabs view-tabs" id="viewTabs">
+    <button type="button" class="tab active" data-view="skills"><span class="n">1·</span>Skills</button>
+    <button type="button" class="tab" data-view="product"><span class="n">37·</span>Product Flow</button>
+    <button type="button" class="tab" data-view="glossary"><span class="n" id="glossaryTabCount">—·</span>Thuật ngữ</button>
+  </div>
+  <div id="skillsView">
+  <div class="tiles">
+    <div class="tile hot"><span class="k">TỔNG SKILL</span><span class="v">37</span> <span class="u">đã Việt hóa</span></div>
+    <div class="tile"><span class="k">ENGINEERING</span><span class="v">18</span> <span class="u">ổn định</span></div>
+    <div class="tile"><span class="k">PRODUCTIVITY</span><span class="v">7</span> <span class="u">ổn định</span></div>
+    <div class="tile"><span class="k">BETA + MISC</span><span class="v">10</span> <span class="u">thử nghiệm / ít dùng</span></div>
+  </div>
+  <section>
+    <h2>Danh mục skill</h2>
+    <div class="app-tools">
+      <div>
+        <div class="k">LỌC THEO NHÓM</div>
+      </div>
+      <div class="result-count" id="resultCount">37 skill đang hiển thị</div>
+    </div>
+  <div class="tabs" id="tabs">
+      <button type="button" class="tab active" data-group="All"><span class="n">37·</span>Tất cả</button>
+      <button type="button" class="tab" data-group="Engineering"><span class="n">18·</span>Engineering</button>
+      <button type="button" class="tab" data-group="Productivity"><span class="n">7·</span>Productivity</button>
+      <button type="button" class="tab" data-group="In progress"><span class="n">6·</span>Beta</button>
+      <button type="button" class="tab" data-group="Misc"><span class="n">4·</span>Misc</button>
+  </div>
+    <div class="search-box skill-search">
+      <label class="k" for="search">TÌM THEO TÊN, MÔ TẢ HOẶC NỘI DUNG</label>
+      <input id="search" type="search" autocomplete="off" placeholder="Ví dụ: bug, TDD, handoff, domain, viết bài...">
+    </div>
+    <div class="table-wrap">
+      <table class="skill-table">
+        <thead><tr><th>Tên skill</th><th>Desc</th><th>Nội dung</th></tr></thead>
+        <tbody id="skillRows">
+        </tbody>
+      </table>
+    </div>
+    <template id="detailTemplate">
+      <tr class="inline-detail-row" hidden>
+        <td colspan="3">
+          <div class="detail-reveal">
+            <div class="detail-reveal-inner">
+              <div class="detail-frame">
+                <div class="panel detail-panel">
+                  <div class="desc">
+                    <div class="k" data-detail="group"></div>
+                    <h3 data-detail="name"></h3>
+                    <p data-detail="vi"></p>
+                    <div class="cost" data-detail="invocation"></div>
+                    <div class="flag" data-detail="desc"></div>
+                    <div class="detail-actions"><button type="button" class="ghost" data-detail="copy">Sao chép link skill</button></div>
+                  </div>
+                  <div class="mind">
+                    <div class="k">▣ VIETSUB · CƠ CHẾ HOẠT ĐỘNG</div>
+                    <div data-detail="content"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </template>
+    <div class="flag empty" id="emptyState">Không tìm thấy skill phù hợp.</div>
+  </section>
+  </div>
+  <section id="productFlowView" hidden>
+    <h2>Product Flow · Skill phối hợp khi build app</h2>
+    <div class="panel product-summary">
+      <div class="desc">
+        <div class="k">◉ LUỒNG CHÍNH</div>
+        <h3>Từ vấn đề tới vòng lặp tiếp theo</h3>
+        <p>Sáu pha nối tiếp nhau nhưng không phải waterfall. Khi kiểm chứng phát hiện sai giả định, đường phản hồi đưa team quay lại khám phá và định hình trước khi build tiếp.</p>
+      </div>
+      <div class="mind">
+        <div class="k">▣ CÁCH DÙNG</div>
+        <h3>Bấm tên skill để đọc cơ chế</h3>
+        <p>Trang sẽ quay về tab Skills và mở đúng nội dung ngay dưới hàng tương ứng. Viền liền là skill có thể auto gọi; viền đứt là workflow cần gọi tay.</p>
+      </div>
+    </div>
+    <div class="stage-wrap product-map-wrap">
+      <svg id="productMap" class="product-map" viewBox="0 0 1440 620" role="img" aria-labelledby="productMapTitle productMapDesc">
+        <title id="productMapTitle">Mindmap phối hợp 37 skill trong quá trình build sản phẩm</title>
+        <desc id="productMapDesc">Sáu pha từ khám phá tới bàn giao, ba nhóm hỗ trợ xuyên suốt và một vòng phản hồi từ kiểm chứng về khám phá.</desc>
+        <defs>
+          <marker id="mapArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1B2A41"/></marker>
+          <marker id="mapArrowRust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#C1440E"/></marker>
+        </defs>
+        <g id="productMapCanvas"></g>
+      </svg>
+    </div>
+    <div class="legend">
+      <div class="lg">
+        <h4>QUYỀN KÍCH HOẠT</h4>
+        <div class="item on"><b>A</b><span class="map-mode-sample"></span>Viền liền: model có thể auto gọi khi description khớp.</div>
+        <div class="item"><b>M</b><span class="map-mode-sample manual"></span>Viền đứt: người dùng chủ động gọi workflow.</div>
+      </div>
+      <div class="lg hot">
+        <h4>ĐƯỜNG PHỐI HỢP</h4>
+        <div class="item on"><b>→</b>Mũi tên ink: pha chính chuyển giao đầu ra cho pha kế tiếp.</div>
+        <div class="item"><b>↺</b>Mũi tên rust: feedback buộc quay lại câu hỏi sản phẩm.</div>
+      </div>
+    </div>
+  </section>
+  <section id="glossaryView" hidden>
+    <h2>Thuật ngữ</h2>
+    <div class="panel">
+      <div class="desc">
+        <div class="k">◉ CÁCH DÙNG</div>
+        <h3>Bấm thuật ngữ trong nội dung skill</h3>
+        <p>Trang sẽ chuyển tới tab này và đánh dấu đúng thuật ngữ cần đọc. Bấm tab <b>Skills</b> để quay lại nội dung đang mở.</p>
+      </div>
+      <div class="mind">
+        <div class="k">▣ QUY ƯỚC</div>
+        <h3>Thuật ngữ giữ nguyên tiếng Anh</h3>
+        <p>Phần giải thích dùng tiếng Việt; tên chuẩn vẫn được giữ lại để bạn nhận diện đúng khi đọc skill, code hoặc tài liệu gốc.</p>
+      </div>
+    </div>
+    <div class="app-tools">
+      <div class="search-box">
+        <label class="k" for="glossarySearch">TÌM THUẬT NGỮ HOẶC GIẢI THÍCH</label>
+        <input id="glossarySearch" type="search" autocomplete="off" placeholder="Ví dụ: seam, frontier, TDD, context pointer...">
+      </div>
+      <div class="result-count" id="glossaryCount"></div>
+    </div>
+    <div class="table-wrap">
+      <table class="glossary-table">
+        <thead><tr><th>Thuật ngữ</th><th>Giải thích</th><th>Xuất hiện trong</th></tr></thead>
+        <tbody id="glossaryRows"></tbody>
+      </table>
+    </div>
+    <div class="flag empty" id="glossaryEmpty">Không tìm thấy thuật ngữ phù hợp.</div>
+  </section>
+  <div class="foot">
+    Nguồn: 37 file SKILL.md trong mattpocock_skills. Nội dung kỹ thuật, command và path được giữ nguyên; phần giải thích được Việt hóa theo hành vi.
+  </div>
+</main>
+</div>
+<div class="term-tip" id="termTip" role="tooltip" hidden></div>
+<script type="text/plain" id="source"># Matt Pocock Skills — Bản Việt hóa và giải thích đầy đủ
+
+Tài liệu này Việt hóa toàn bộ 37 `SKILL.md` trong repository `mattpocock_skills` theo hành vi thực tế. Tên lệnh, tên file, câu lệnh terminal và thuật ngữ kỹ thuật cần dùng nguyên dạng được giữ nguyên để tránh làm sai cơ chế.
+
+## Cách đọc
+
+- **Gọi tay**: chỉ chạy khi người dùng gọi trực tiếp.
+- **Tự gọi**: agent có thể tự chọn khi yêu cầu phù hợp.
+- **Ổn định**: nằm trong nhóm Engineering hoặc Productivity và được phát hành trong plugin chính.
+- **Beta**: đang phát triển, có thể thay đổi hoặc biến mất.
+- **Ít dùng**: tác giả vẫn giữ nhưng không đưa vào plugin chính.
+
+## Bảng tra cứu 37 skill
+
+| Nhóm | Skill | Tên Việt hóa | Cách gọi | Việc chính |
+|---|---|---|---|---|
+| Engineering | `ask-matt` | Hỏi Matt | Gọi tay | Chọn đúng skill và luồng làm việc |
+| Engineering | `grill-with-docs` | Hỏi xoáy kèm tài liệu | Gọi tay | Làm rõ ý tưởng đồng thời cập nhật domain docs |
+| Engineering | `triage` | Phân loại issue | Gọi tay | Đưa issue/PR qua state machine triage |
+| Engineering | `improve-codebase-architecture` | Cải thiện kiến trúc codebase | Gọi tay | Tìm cơ hội biến module nông thành module sâu |
+| Engineering | `setup-matt-pocock-skills` | Thiết lập bộ skill Matt Pocock | Gọi tay | Cấu hình issue tracker, nhãn và domain docs |
+| Engineering | `to-spec` | Chuyển thành đặc tả | Gọi tay | Tổng hợp hội thoại thành spec |
+| Engineering | `to-tickets` | Chuyển thành ticket | Gọi tay | Chia spec thành các lát cắt dọc có quan hệ chặn |
+| Engineering | `implement` | Triển khai | Gọi tay | Thi công spec/ticket bằng TDD và code review |
+| Engineering | `wayfinder` | Dẫn đường | Gọi tay | Lập bản đồ quyết định cho công việc quá lớn |
+| Engineering | `prototype` | Làm nguyên mẫu | Tự gọi | Tạo code dùng một lần để trả lời câu hỏi thiết kế |
+| Engineering | `diagnosing-bugs` | Chẩn đoán lỗi | Tự gọi | Tạo vòng phản hồi rồi tìm và khóa nguyên nhân lỗi |
+| Engineering | `research` | Nghiên cứu | Tự gọi | Tra cứu nguồn sơ cấp và lưu báo cáo có trích dẫn |
+| Engineering | `tdd` | Phát triển hướng kiểm thử | Tự gọi | Làm theo vòng đỏ → xanh, từng lát cắt dọc |
+| Engineering | `domain-modeling` | Mô hình hóa nghiệp vụ | Tự gọi | Chuẩn hóa ngôn ngữ domain và ghi ADR cần thiết |
+| Engineering | `codebase-design` | Thiết kế codebase | Tự gọi | Thiết kế module sâu, seam sạch và interface nhỏ |
+| Engineering | `code-review` | Đánh giá mã nguồn | Tự gọi | Review riêng theo Standards và Spec |
+| Engineering | `resolving-merge-conflicts` | Giải quyết xung đột merge | Tự gọi | Hợp nhất ý định của hai phía rồi hoàn tất Git operation |
+| Engineering | `wizard` | Trình hướng dẫn tương tác | Tự gọi | Sinh Bash wizard cho các bước con người phải làm |
+| Productivity | `grill-me` | Hỏi xoáy tôi | Gọi tay | Chạy phiên phỏng vấn sâu không lưu trạng thái |
+| Productivity | `grilling` | Phỏng vấn truy vấn sâu | Tự gọi | Cơ chế hỏi theo cây quyết định và từng vòng frontier |
+| Productivity | `handoff` | Bàn giao | Gọi tay | Nén ngữ cảnh thành tài liệu cho agent khác |
+| Productivity | `teach` | Giảng dạy | Gọi tay | Dạy qua nhiều phiên bằng workspace có trạng thái |
+| Productivity | `to-questionnaire` | Chuyển thành bảng câu hỏi | Gọi tay | Khai thác tri thức từ đúng người bằng questionnaire |
+| Productivity | `wait-what` | Khoan, ý là gì? | Gọi tay | Yêu cầu agent diễn giải lại thông điệp khó hiểu |
+| Productivity | `writing-for-agents` | Viết tài liệu cho agent | Tự gọi | Thiết kế skill và agent instructions ít biến thiên |
+| In progress | `claude-handoff` | Bàn giao cho Claude nền | Beta · Gọi tay | Mở background Claude agent bằng bản tóm tắt |
+| In progress | `implement-spec` | Triển khai spec | Beta · Gọi tay | Biến spec và ticket thành một PR duy nhất |
+| In progress | `loop-me` | Đặc tả các vòng lặp của tôi | Beta · Gọi tay | Biến vòng lặp đời sống thành workflow spec |
+| In progress | `retro` | Nhìn lại phiên code | Beta · Gọi tay | Đề xuất cải thiện môi trường agent sau mỗi phiên |
+| In progress | `setup-ts-deep-modules` | Thiết lập deep module TypeScript | Beta · Gọi tay | Ép import qua entry point bằng dependency-cruiser |
+| In progress | `writing-beats` | Viết theo nhịp nội dung | Beta · Gọi tay | Xây bài từng beat theo đường đi do người dùng chọn |
+| In progress | `writing-fragments` | Khai thác mảnh viết | Beta · Gọi tay | Thu thập nguyên liệu viết mà chưa áp cấu trúc |
+| In progress | `writing-shape` | Tạo hình bài viết | Beta · Gọi tay | Biến đống nguyên liệu thành bài theo từng block |
+| Misc | `git-guardrails-claude-code` | Hàng rào Git cho Claude Code | Ít dùng · Tự gọi | Chặn lệnh Git nguy hiểm trước khi chạy |
+| Misc | `migrate-to-shoehorn` | Chuyển test sang Shoehorn | Ít dùng · Tự gọi | Thay TypeScript assertion bằng dữ liệu test một phần |
+| Misc | `scaffold-exercises` | Dựng khung bài tập | Ít dùng · Tự gọi | Tạo cấu trúc course exercise đúng lint |
+| Misc | `setup-pre-commit` | Thiết lập pre-commit | Ít dùng · Tự gọi | Cài Husky, lint-staged, Prettier, typecheck và test |
+
+# Engineering — Kỹ thuật phần mềm
+
+## `ask-matt` — Hỏi Matt
+
+**Mục tiêu:** làm router cho cả bộ skill. Người dùng không cần nhớ skill nào nên dùng; skill này phân loại tình huống rồi chỉ đường.
+
+**Luồng chính từ ý tưởng đến phát hành:**
+
+1. Trong repo, bắt đầu bằng `grill-with-docs` để làm rõ ý tưởng và lưu thuật ngữ/quyết định vào `CONTEXT.md`, ADR. Ngoài repo thì dùng `grill-me` vì nó không lưu trạng thái.
+2. Nếu có câu hỏi phải nhìn hoặc chạy mới trả lời được, tạo nhánh thử nghiệm: `handoff` sang thư mục/phiên mới → `prototype` → `handoff` kết quả về luồng gốc.
+3. Nếu công việc kéo dài nhiều phiên: `to-spec` → `to-tickets` → mỗi ticket mở một phiên sạch chạy `implement`. Nếu đủ nhỏ cho một phiên, gọi `implement` ngay trong ngữ cảnh hiện tại.
+4. `implement` dùng `tdd` theo từng lát cắt đỏ–xanh, chạy `code-review`, rồi commit.
+
+**Các lối nhập khác:**
+
+- Issue hoặc PR bên ngoài đang dồn lại → `triage`.
+- Bug khó, flake hoặc regression → `diagnosing-bugs`.
+- Dự án hoặc feature quá lớn, chưa nhìn thấy đường đến đích → `wayfinder`; khi bản đồ đã rõ thì quay về `to-spec`, không đi thẳng vào code.
+- Kiểm tra sức khỏe kiến trúc định kỳ → `improve-codebase-architecture`.
+
+**Lớp từ vựng bên dưới:** `domain-modeling` quản lý ngôn ngữ nghiệp vụ; `codebase-design` quản lý từ vựng module sâu, interface, seam, adapter, leverage và locality.
+
+**Quản lý context tại ranh giới pha:** cân nhắc tiếp tục, `/clear`, `handoff`, subagent hoặc `/compact`. Giữ nguyên một context từ grilling đến hết `to-tickets` nếu còn trong vùng suy luận tốt; mỗi `implement` bắt đầu bằng context mới từ ticket tự chứa.
+
+**Các skill đứng riêng:** `resolving-merge-conflicts`, `prototype`, `research`, `to-questionnaire`, `wizard`, `wait-what`, `teach`, `writing-for-agents`. Trước luồng engineering đầu tiên phải chạy `setup-matt-pocock-skills`.
+
+## `grill-with-docs` — Hỏi xoáy kèm tài liệu
+
+Đây là wrapper rất mỏng: chạy một phiên `grilling`, đồng thời bật `domain-modeling`.
+
+Trong phiên hỏi, agent không chỉ làm rõ kế hoạch mà còn:
+
+- Phát hiện thuật ngữ mơ hồ hoặc xung đột với glossary.
+- Chốt thuật ngữ chuẩn và cập nhật `CONTEXT.md` ngay khi quyết định hình thành.
+- Tạo ADR khi quyết định khó đảo ngược, bất ngờ nếu thiếu bối cảnh và thật sự có đánh đổi.
+
+Khác với `grill-me`, skill này để lại “dấu vết giấy tờ” trong repo.
+
+## `triage` — Phân loại issue và PR
+
+**Mục tiêu:** đưa issue, và PR bên ngoài nếu repo cấu hình như vậy, qua một state machine nhỏ.
+
+**Hai role phân loại:** `bug`, `enhancement`.
+
+**Năm role trạng thái:** `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Mỗi item phải có đúng một category và một state. Nếu nhãn trạng thái xung đột, phải dừng và hỏi maintainer.
+
+Mọi comment hoặc issue do AI đăng trong quá trình triage phải bắt đầu bằng câu cảnh báo: `This was generated by AI during triage.`
+
+**Khi liệt kê việc cần chú ý:** truy vấn ba nhóm, cũ nhất trước: chưa có nhãn; đang `needs-triage`; `needs-info` nhưng reporter vừa phản hồi. Với PR phải ghi rõ `[PR]`/`[issue]` và chỉ tự phát hiện external PR; PR được người dùng gọi đích danh vẫn luôn được xử lý.
+
+**Khi triage một item cụ thể:**
+
+1. Đọc toàn bộ body, comment, label, tác giả, ngày; với PR đọc cả diff. Đọc triage note cũ, glossary, ADR. Tìm xem hành vi đã tồn tại chưa và kiểm tra `.out-of-scope/` xem yêu cầu từng bị từ chối chưa.
+2. Đề xuất category/state, nêu lý do và tóm tắt codebase, rồi chờ maintainer chỉ đạo.
+3. Xác minh claim trước khi hỏi thêm: tái hiện bug hoặc checkout PR và chạy kiểm tra phù hợp.
+4. Nếu yêu cầu chưa đủ rõ, chạy `grilling` cùng `domain-modeling`.
+5. Áp kết quả: tạo agent brief cho `ready-for-agent`; giải thích phần cần người cho `ready-for-human`; đăng triage notes cho `needs-info`; đóng và giải thích cho `wontfix`; hoặc gắn `needs-triage`.
+
+Yêu cầu đã được triển khai thì chỉ trỏ đến code hiện có, không ghi vào `.out-of-scope/`. Enhancement bị từ chối mới được lưu vào knowledge base này. Nếu maintainer ra lệnh chuyển trạng thái trực tiếp, tin họ, xác nhận tác động, bỏ qua grilling; nếu chuyển thẳng sang `ready-for-agent`, hỏi có cần agent brief không.
+
+## `improve-codebase-architecture` — Cải thiện kiến trúc codebase
+
+**Mục tiêu:** tìm ma sát kiến trúc và cơ hội “làm sâu” module để tăng khả năng kiểm thử và giúp agent điều hướng code dễ hơn.
+
+Skill bắt buộc dùng đúng từ vựng của `codebase-design`: module, interface, depth, seam, adapter, leverage, locality. Nó đọc `CONTEXT.md` để dùng tên domain đúng và đọc ADR để không khơi lại quyết định đã chốt.
+
+**Quy trình:**
+
+1. Chọn phạm vi trước khi quét. Nếu người dùng chỉ định module/pain point thì theo đó. Nếu không, xem lịch sử Git để tìm hotspot thay đổi thường xuyên.
+2. Khám phá code, tìm nơi phải nhảy qua nhiều module nhỏ, module nông, pure function bị tách chỉ để test, coupling rò qua seam hoặc phần khó test. Dùng deletion test: bỏ module đi có làm complexity dồn ngược về nhiều caller không?
+3. Tạo HTML report tự chứa trong thư mục tạm của hệ điều hành, không ghi vào repo. Mỗi candidate có file liên quan, vấn đề, giải pháp, lợi ích theo locality/leverage, sơ đồ before/after và mức `Strong`, `Worth exploring` hoặc `Speculative`.
+4. Kết thúc report bằng đề xuất ưu tiên số một, mở file cho người dùng, nhưng chưa thiết kế interface.
+5. Khi người dùng chọn candidate, chạy `grilling`; dùng `domain-modeling` để cập nhật thuật ngữ/ADR ngay khi quyết định hình thành. Khi cần so nhiều interface, dùng pattern “design it twice” của `codebase-design`.
+
+Candidate mâu thuẫn ADR chỉ được nêu khi ma sát đủ thật để đáng mở lại quyết định, và phải đánh dấu rõ xung đột.
+
+## `setup-matt-pocock-skills` — Thiết lập bộ skill Matt Pocock
+
+**Mục tiêu:** tạo cấu hình theo từng repo mà các engineering skill khác giả định đã có: issue tracker, từ vựng nhãn triage và layout domain docs.
+
+Đây là quy trình hỏi–đáp, không phải script cố định.
+
+**Bước 1 — khám phá:** đọc remote Git, `.git/config`, `AGENTS.md`/`CLAUDE.md`, `CONTEXT.md`, `CONTEXT-MAP.md`, các thư mục ADR, `docs/agents/`, `.scratch/`, trạng thái cài `triage` và dấu hiệu monorepo.
+
+**Bước 2 — chốt cấu hình từng phần:**
+
+- Issue tracker: ưu tiên GitHub nếu remote là GitHub, GitLab nếu remote tương ứng; ngoài ra hỗ trợ local Markdown hoặc tracker tùy chỉnh như Jira/Linear. Ghi lựa chọn vào `docs/agents/issue-tracker.md`.
+- Triage labels: chỉ hỏi nếu skill `triage` được cài. Mặc định giữ năm tên canonical; chỉ thu thập mapping khác khi người dùng từ chối mặc định.
+- Domain docs: mặc định single-context với `CONTEXT.md` và `docs/adr/` ở root. Chỉ đề xuất multi-context khi repo thật sự có dấu hiệu monorepo.
+
+**Bước 3 — duyệt trước khi ghi:** hiển thị bản nháp block `## Agent skills` và các file `docs/agents/*.md` để người dùng chỉnh.
+
+**Bước 4 — ghi:** ưu tiên sửa `CLAUDE.md` nếu có, nếu không thì `AGENTS.md`; nếu cả hai chưa có thì hỏi người dùng chọn. Không tạo file còn lại khi một file đã tồn tại và không nhân đôi block đã có. Tạo tài liệu issue tracker, domain và triage labels từ template của skill.
+
+**Bước 5 — hoàn tất:** báo file nào đã tạo và skill nào sẽ đọc chúng. Chỉ cần chạy lại khi đổi tracker hoặc muốn thiết lập lại từ đầu.
+
+## `to-spec` — Chuyển hội thoại thành đặc tả
+
+Skill này không phỏng vấn lại. Nó tổng hợp context hiện tại và hiểu biết về codebase thành spec rồi đăng lên issue tracker.
+
+**Quy trình:**
+
+1. Khám phá repo nếu chưa làm, dùng vocabulary trong glossary và tôn trọng ADR.
+2. Phác thảo seam sẽ dùng để test. Ưu tiên seam hiện có, chọn seam cao nhất có thể và giữ số seam ít nhất; lý tưởng là một. Xác nhận seam với người dùng.
+3. Viết spec, publish và gắn `ready-for-agent`; không cần triage thêm.
+
+**Spec phải có:** Problem Statement từ góc nhìn người dùng; Solution; danh sách User Stories dài theo mẫu “As an…, I want…, so that…”; Implementation Decisions; Testing Decisions; Out of Scope; Further Notes.
+
+Không đưa file path hoặc code snippet vì dễ lỗi thời. Ngoại lệ là đoạn rút gọn từ prototype biểu diễn quyết định chính xác hơn văn xuôi, như state machine, reducer, schema hoặc type shape.
+
+## `to-tickets` — Chuyển kế hoạch thành ticket
+
+**Mục tiêu:** chia plan/spec/hội thoại thành các tracer-bullet ticket; mỗi ticket là một lát cắt dọc hoàn chỉnh và khai báo ticket nào đang chặn nó.
+
+**Quy trình:**
+
+1. Dùng context sẵn có; nếu người dùng đưa spec path, issue hoặc URL thì đọc toàn bộ body và comment.
+2. Khám phá code nếu cần, dùng domain vocabulary và ADR. Tìm prefactor có thể “làm thay đổi trở nên dễ, rồi thực hiện thay đổi dễ”.
+3. Chia lát dọc: mỗi ticket đi xuyên schema/API/UI/test khi có liên quan, tự demo hoặc xác minh được, và vừa một context window mới.
+4. Trình danh sách cho người dùng gồm title, blockers và hành vi end-to-end; hỏi độ lớn, dependency, cần gộp/tách không; lặp tới khi được duyệt.
+5. Publish theo tracker đã cấu hình.
+
+**Wide refactor là ngoại lệ:** thay đổi cơ học có blast radius lớn phải dùng expand–contract: thêm dạng mới song song → migrate từng batch vẫn giữ CI xanh → xóa dạng cũ khi mọi caller đã chuyển. Nếu batch không thể xanh riêng, dùng integration branch và ticket tích hợp cuối.
+
+Với local tracker, ghi một file mỗi ticket tại `.scratch/<feature>/issues/<NN>-<slug>.md`, blockers trước. Với tracker thật, tạo issue theo dependency order và dùng native blocking link khi có. Không sửa/đóng parent issue. Không nhúng path/code dễ lỗi thời, trừ đoạn quyết định cô đọng từ prototype.
+
+## `implement` — Triển khai
+
+Skill ngắn nhưng mang tính điều phối:
+
+1. Đọc spec hoặc ticket người dùng chỉ định.
+2. Dùng `tdd` tại các seam đã thống nhất khi có thể.
+3. Chạy typecheck thường xuyên, chạy từng test file thường xuyên, và chạy full test suite một lần ở cuối.
+4. Khi hoàn tất, gọi `code-review` để review thay đổi.
+5. Commit công việc vào branch hiện tại.
+
+Nó không tự thiết kế thêm scope; nguồn công việc là spec/ticket đã có.
+
+## `wayfinder` — Dẫn đường cho công việc rất lớn
+
+**Dùng khi:** đích đến còn mờ và khối lượng vượt quá một phiên agent. Skill này lập kế hoạch bằng quyết định, không xây sản phẩm mặc định.
+
+**Map:** một issue canonical gắn `wayfinder:map`, chứa Destination, Notes, Decisions so far, Not yet specified và Out of scope. Map chỉ là index; chi tiết quyết định nằm đúng một nơi là ticket con. Trong nội dung cho người đọc phải gọi ticket bằng tên có link, không dùng dãy ID trơ trọi.
+
+**Ticket:** mỗi child issue chỉ chứa một câu hỏi đủ cho một phiên khoảng 100K token, mang một label: `research`, `prototype`, `grilling` hoặc `task`. Ticket được claim bằng cách assign trước khi làm. Blocking dùng dependency native của tracker; frontier là các ticket đang mở, không bị chặn và chưa được claim.
+
+**Các loại ticket:**
+
+- Research: AFK, dùng `research` để tìm fact từ nguồn ngoài.
+- Prototype: HITL, tạo artifact cụ thể để con người phản ứng.
+- Grilling: HITL, dùng `grilling` và `domain-modeling`.
+- Task: việc thủ công cần hoàn thành trước khi có thể ra quyết định; chỉ tồn tại để mở khóa quyết định, không phải để giao deliverable cuối.
+
+**Fog of war:** câu hỏi chưa thể phát biểu chính xác nằm trong `Not yet specified`; khi đã phát biểu chính xác được thì phải thành ticket, dù chưa trả lời được. Việc ngoài Destination nằm trong `Out of scope`, không phải fog và không bao giờ tự “tốt nghiệp” thành ticket.
+
+**Chế độ lập map:** chốt Destination bằng grilling → quét breadth-first để thấy frontier/fog → tạo map → tạo ticket có thể định nghĩa ngay → nối dependency ở lượt hai → mở các research subagent → dừng, không tự giải quyết ticket trong phiên lập map.
+
+**Chế độ đi qua map:** tải map ở mức tổng quan → chọn ticket frontier hoặc ticket người dùng nêu → claim → đọc sâu khi cần và giải quyết → đăng resolution comment, đóng ticket, thêm một dòng tóm tắt có link vào Decisions so far → tạo/wire ticket mới và nâng phần fog đã rõ thành ticket.
+
+Mỗi phiên chỉ giải quyết tối đa một ticket, ngoại trừ các research ticket có thể chạy song song. Khi đường đã rõ, bàn giao sang `to-spec`, rồi `to-tickets` và `implement`.
+
+## `prototype` — Làm nguyên mẫu
+
+Prototype là code bỏ được dùng để trả lời đúng một câu hỏi thiết kế.
+
+**Hai nhánh:**
+
+- Câu hỏi về logic/state model → theo `LOGIC.md`, tạo một HTML tự chứa có free-play controls và walkthrough theo tab để đẩy state machine qua các case khó.
+- Câu hỏi về giao diện → theo `UI.md`, tạo nhiều biến thể UI khác biệt trên cùng route, chuyển bằng URL parameter và thanh điều khiển nổi.
+
+Nếu câu hỏi mơ hồ và không hỏi được người dùng, suy ra từ code xung quanh: backend nghiêng về logic, page/component nghiêng về UI; ghi assumption ngay trong prototype.
+
+**Quy tắc:** đặt gần nơi sẽ áp dụng nhưng tên phải nói rõ là prototype; chạy bằng một lệnh đơn giản hoặc double-click HTML; state mặc định chỉ ở memory; không polish, test, error handling hay abstraction ngoài mức cần để chạy; luôn hiển thị state liên quan sau action/variant switch.
+
+Khi học xong, đưa quyết định đã xác minh vào code thật. Giữ prototype như primary source trên branch `prototype/<name>` ngoài main, trỏ issue triển khai đến branch đó và ghi verdict cùng câu hỏi nó đã giải quyết.
+
+## `diagnosing-bugs` — Chẩn đoán lỗi
+
+Skill này dành cho bug khó hoặc performance regression. Mọi output phải che secret thành `<REDACTED>`; credential nằm trong environment, không xuất hiện trong lệnh/báo cáo.
+
+**Pha 1 — tạo feedback loop:** đây là phần quan trọng nhất. Tìm một lệnh nhanh, ổn định, agent tự chạy được và có khả năng đỏ đúng triệu chứng người dùng mô tả. Thứ tự gợi ý: failing test → curl script → CLI + snapshot → headless browser → replay trace → harness tối thiểu → property/fuzz → bisection → differential loop → HITL script. Với bug ngẫu nhiên, tăng tần suất tái hiện bằng lặp, song song, stress hoặc kiểm soát timing. Nếu không tạo được loop, dừng, liệt kê đã thử gì và xin môi trường/artifact/instrumentation; không được nhảy sang phỏng đoán.
+
+**Pha 2 — tái hiện và thu nhỏ:** chạy loop cho đỏ, xác nhận đúng bug, rồi bỏ từng input/caller/config/data/step đến khi mọi phần còn lại đều bắt buộc để lỗi xuất hiện.
+
+**Pha 3 — giả thuyết:** tạo 3–5 giả thuyết có xếp hạng. Mỗi giả thuyết phải có dự đoán có thể bác bỏ. Hiển thị danh sách cho người dùng trước khi kiểm tra, nhưng vẫn tiếp tục theo xếp hạng nếu họ vắng mặt.
+
+**Pha 4 — instrument:** mỗi probe phải gắn với một dự đoán và chỉ đổi một biến. Ưu tiên debugger/REPL, sau đó targeted log; không log mọi thứ. Log tạm có prefix độc nhất `[DEBUG-...]`. Với performance phải đo baseline/profiler/query plan trước khi sửa.
+
+**Pha 5 — sửa và regression test:** chỉ viết test tại seam tái hiện đúng pattern thực tế. Biến minimized repro thành test đỏ → sửa tối thiểu → test xanh → chạy lại loop gốc. Nếu không có seam đúng, ghi nhận đó là phát hiện kiến trúc thay vì thêm test tạo tự tin giả.
+
+**Pha 6 — dọn và hậu kiểm:** loop gốc không còn đỏ; regression test qua hoặc thiếu seam được ghi rõ; xóa toàn bộ instrumentation và harness tạm; ghi nguyên nhân đúng trong commit/PR. Nếu nguyên nhân sâu là kiến trúc thiếu seam hoặc coupling, bàn giao cho `improve-codebase-architecture` sau khi bug đã được sửa.
+
+## `research` — Nghiên cứu
+
+Skill giao việc đọc cho background agent để phiên chính vẫn tiếp tục làm việc.
+
+Agent nghiên cứu phải:
+
+1. Dùng nguồn sơ cấp có độ tin cậy cao: tài liệu chính thức, source code, specification hoặc first-party API; truy ngược từng claim về nguồn sở hữu thông tin.
+2. Viết kết quả vào đúng một file Markdown, trích nguồn cho từng claim.
+3. Lưu theo convention sẵn có của repo; nếu chưa có thì chọn vị trí hợp lý và báo rõ.
+
+Đầu ra là nguyên liệu đưa vào quá trình suy nghĩ hoặc spec, không tự thay thế quyết định của người dùng.
+
+## `tdd` — Phát triển hướng kiểm thử
+
+**Định nghĩa:** TDD là vòng đỏ → xanh. Test tốt xác minh hành vi qua public interface, đọc như specification và không vỡ khi chỉ refactor implementation.
+
+**Seam:** nơi public interface cho phép quan sát hành vi mà không chọc vào internals. Trước khi viết test phải liệt kê seam và xác nhận với người dùng. Chọn seam cao, quan trọng và có hành vi phức tạp; không test mọi thứ.
+
+**Ba anti-pattern:**
+
+- Implementation-coupled: mock collaborator nội bộ, test private method hoặc kiểm tra qua side channel.
+- Tautological: expected được tính lại bằng cùng logic với code nên test không thể bất đồng.
+- Horizontal slicing: viết toàn bộ test trước rồi mới viết toàn bộ implementation; thay bằng từng vertical tracer bullet.
+
+**Luật vòng lặp:** test phải đỏ trước khi code xanh; mỗi vòng chỉ một seam, một test và implementation tối thiểu; không đoán feature tương lai. Refactor được để sang giai đoạn review, không trộn vào vòng đỏ–xanh.
+
+## `domain-modeling` — Mô hình hóa nghiệp vụ
+
+Skill này chủ động thay đổi domain model; chỉ đọc `CONTEXT.md` không được tính là chạy skill.
+
+**Cấu trúc:** repo thường có một `CONTEXT.md` và `docs/adr/`. Nếu root có `CONTEXT-MAP.md`, repo dùng nhiều context và mỗi context có glossary/ADR riêng. Chỉ tạo file khi thật sự có nội dung cần ghi.
+
+**Trong phiên:**
+
+- Nêu ngay khi thuật ngữ người dùng xung đột glossary.
+- Với từ mơ hồ hoặc overload, đề xuất canonical term chính xác.
+- Dùng scenario cụ thể và edge case để ép làm rõ ranh giới khái niệm.
+- Đối chiếu phát biểu với code; nếu code và mô tả mâu thuẫn, đưa ra để chốt nguồn đúng.
+- Khi thuật ngữ được giải quyết, cập nhật `CONTEXT.md` ngay, không gom cuối phiên.
+
+`CONTEXT.md` chỉ là glossary, tuyệt đối không biến thành spec, scratchpad hay nơi chứa implementation decision.
+
+Chỉ đề xuất ADR khi đồng thời đúng ba điều: khó đảo ngược; người đọc tương lai sẽ thấy lạ nếu thiếu bối cảnh; và kết quả đến từ một đánh đổi thật giữa các phương án.
+
+## `codebase-design` — Thiết kế codebase bằng module sâu
+
+**Mục tiêu:** nhiều hành vi sau một interface nhỏ, đặt tại seam sạch và test được qua chính interface đó.
+
+**Từ vựng bắt buộc:**
+
+- Module: bất cứ thứ gì có interface và implementation, từ function tới package.
+- Interface: mọi điều caller cần biết, gồm type, invariant, thứ tự, error, config và đặc tính hiệu năng.
+- Implementation: code bên trong module.
+- Depth: lượng hành vi nhận được trên mỗi đơn vị interface phải học; module sâu có interface nhỏ và hành vi lớn.
+- Seam: vị trí có thể thay đổi hành vi mà không sửa code tại đó; nơi interface sống.
+- Adapter: implementation cụ thể lấp vào một seam.
+- Leverage: caller học ít nhưng dùng được nhiều.
+- Locality: thay đổi, bug, tri thức và verification tập trung một chỗ.
+
+**Nguyên tắc:** depth là thuộc tính của interface, không phải số dòng implementation; deletion test xem khi xóa module thì complexity biến mất hay tràn về caller; interface cũng là test surface; một adapter chỉ là seam giả định, từ hai adapter mới chứng minh variation thật.
+
+**Thiết kế dễ test:** nhận dependency thay vì tự tạo; trả result thay vì chỉ tạo side effect; giữ số method và parameter nhỏ.
+
+Không gọi “component”, “service”, “API” hoặc “boundary” thay cho vocabulary trên. Không đo depth bằng tỷ lệ số dòng. TypeScript `interface` chỉ là một phần rất nhỏ của khái niệm interface ở đây.
+
+## `code-review` — Review theo Standards và Spec
+
+Review diff từ một fixed point đến `HEAD` theo hai trục độc lập, chạy bằng hai subagent để context không nhiễm nhau.
+
+**Bước 1:** chốt fixed point do người dùng đưa, kiểm tra nó resolve được, lấy `git diff <fixed-point>...HEAD` và `git log <fixed-point>..HEAD --oneline`. Dừng sớm nếu ref sai hoặc diff rỗng.
+
+**Bước 2:** tìm spec theo thứ tự: issue trong commit message → path người dùng đưa → file trong `docs/`, `specs/`, `.scratch/` khớp branch → hỏi người dùng. Nếu không có spec, bỏ trục Spec và ghi rõ.
+
+**Bước 3:** tìm coding standards của repo. Ngoài ra luôn áp baseline code smell của Fowler, nhưng đây chỉ là judgement call và repo standard luôn thắng: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest. Bỏ những gì tooling đã tự enforce.
+
+**Bước 4:** Standards subagent đối chiếu từng hunk với standard và smell; Spec subagent tìm requirement thiếu/một phần, scope creep và implementation có vẻ sai so với spec. Mỗi báo cáo dưới 400 từ.
+
+**Bước 5:** trình hai báo cáo dưới hai heading riêng, không trộn hoặc xếp hạng lại giữa hai trục. Kết thúc bằng số finding và finding nặng nhất trong từng trục.
+
+## `resolving-merge-conflicts` — Giải quyết conflict theo ý định
+
+1. Kiểm tra trạng thái merge/rebase, lịch sử Git và file conflict.
+2. Tìm primary source cho mỗi phía: commit message, PR, issue hoặc ticket; hiểu tại sao thay đổi được tạo.
+3. Giải từng hunk, giữ cả hai ý định nếu tương thích. Nếu không, chọn ý định phù hợp mục tiêu merge và nêu đánh đổi. Không tạo hành vi mới và không chạy `--abort`.
+4. Phát hiện automated checks của repo, thường là typecheck → test → format; sửa lỗi do merge gây ra.
+5. Stage và hoàn tất merge/rebase; nếu rebase thì tiếp tục tới khi mọi commit xong.
+
+## `wizard` — Sinh trình hướng dẫn Bash tương tác
+
+**Dùng khi:** có bước chỉ con người mới làm được, như tạo tài khoản/hạ tầng, lấy credential, bấm dashboard bên thứ ba, migration hoặc cutover. Không dùng nếu agent có thể tự thực hiện.
+
+Skill dùng `template.sh` đã có sẵn UX: tiến độ từng stage, confirmation gate, mở URL đa nền tảng, nhập secret ẩn, upsert `.env`, ghi GitHub secret/variable và summary cuối. Không sửa thư viện phía trên marker `STAGES`; chỉ định nghĩa stage.
+
+**Quy trình:**
+
+1. Đọc repo để liệt kê toàn bộ bước thủ công và value cần thu thập. Với setup, xem `.env*`, README, Docker, framework config và workflow CI. Với migration, hiểu trạng thái đầu/cuối và hành động không thể đảo ngược. Xác nhận danh sách stage với người dùng.
+2. Với mỗi stage, ghi đường đi chính xác: URL, chỗ click, chỗ lấy value, biến nhận value. Không biết UI hiện tại thì kiểm tra docs hoặc hỏi, không bịa.
+3. Copy `template.sh`, tạo một `stage` cho mỗi bước, dùng helpers `stage`, `say`, `step`, `open_url`, `ask`, `ask_secret`, `write_env`, `set_secret`, `set_var`, `pause`, `confirm`; đặt đúng `TOTAL_STAGES`.
+4. Chạy `bash -n`, chạy `shellcheck` nếu có, `chmod +x`, rồi kiểm tra tĩnh đường đi của từng value. Không tự chạy end-to-end vì script mở browser và chờ người.
+
+Wizard mặc định là tạm thời. Chỉ commit và link từ README khi người dùng muốn quy trình setup lặp lại lâu dài.
+
+# Productivity — Năng suất và quy trình chung
+
+## `grill-me` — Hỏi xoáy tôi
+
+Đây là wrapper gọi trực tiếp `grilling`.
+
+Nó dùng khi người dùng muốn làm rõ một kế hoạch, ý tưởng hoặc thiết kế nhưng không cần lưu glossary/ADR vào repo. Toàn bộ cơ chế đặt câu hỏi, chia vòng và duyệt cây quyết định đến từ `grilling`. Nếu đang làm việc trong một repo và muốn giữ lại thuật ngữ/quyết định, dùng `grill-with-docs` thay thế.
+
+## `grilling` — Phỏng vấn truy vấn sâu
+
+**Mục tiêu:** phỏng vấn cho tới khi agent và người dùng có cùng cách hiểu, không còn nhánh quyết định nào bị giả định ngầm.
+
+Agent biểu diễn vấn đề thành **design tree**. Một quyết định mở ra các quyết định phụ thuộc phía sau. **Frontier** là toàn bộ câu hỏi có prerequisite đã được chốt và có thể hỏi ngay mà không cần đoán.
+
+**Nhịp làm việc:**
+
+1. Tính frontier hiện tại.
+2. Hỏi toàn bộ frontier trong một vòng, đánh số từng câu và kèm câu trả lời agent đề xuất.
+3. Chờ người dùng trả lời vòng đó.
+4. Dùng câu trả lời để vẽ lại cây, mở khóa frontier mới và hỏi vòng tiếp theo.
+5. Kết thúc khi frontier rỗng.
+
+Câu hỏi phụ thuộc vào một câu chưa được giải quyết trong vòng hiện tại phải để sang vòng sau. Format câu hỏi gồm biểu tượng câu hỏi, mã `Q1`, tiêu đề, nội dung/lựa chọn và một dòng đề xuất của agent.
+
+Tìm fact là trách nhiệm của agent: đọc filesystem, code, tool hoặc nguồn cần thiết thay vì bắt người dùng tra cứu. Quyết định là trách nhiệm của người dùng. Khi fact đang được tìm, chỉ hoãn câu hỏi phụ thuộc fact đó; các nhánh frontier còn lại vẫn tiếp tục.
+
+Khi cây đã hết nhánh, agent phải xác nhận đã đạt shared understanding trước khi hành động theo kết quả.
+
+## `handoff` — Bàn giao sang agent hoặc phiên khác
+
+Skill viết một tài liệu Markdown tóm tắt hội thoại để agent mới tiếp tục mà không cần đọc lại toàn bộ lịch sử.
+
+**Quy tắc:**
+
+- Lưu file vào thư mục tạm của hệ điều hành, không ghi vào workspace hiện tại.
+- Có mục `suggested skills` để chỉ skill agent sau nên dùng.
+- Không chép lại spec, plan, ADR, issue, commit hoặc diff đã tồn tại; chỉ trỏ path/URL đến artifact nguồn.
+- Che API key, password, PII và dữ liệu nhạy cảm.
+- Nếu người dùng truyền argument mô tả mục tiêu phiên tiếp theo, điều chỉnh handoff xoay quanh mục tiêu đó.
+
+Giá trị của `handoff` là tính di động: dùng khi đổi harness, đổi thư mục, giao đồng nghiệp hoặc tách một side task cần context riêng.
+
+## `teach` — Giảng dạy qua workspace có trạng thái
+
+Skill coi thư mục hiện tại là một khóa học kéo dài nhiều phiên, không phải câu trả lời một lần.
+
+**Các artifact:**
+
+- `MISSION.md`: lý do người dùng học chủ đề, dùng để neo mọi lesson.
+- `reference/*.html`: cheat sheet, thuật toán, syntax, glossary và tài liệu tra cứu đẹp, in được.
+- `RESOURCES.md`: danh sách nguồn tri thức đáng tin cậy.
+- `learning-records/*.md`: insight và bài học không hiển nhiên, đánh số `0001-...`; dùng để xác định vùng phát triển gần.
+- `lessons/*.html`: mỗi file là một lesson nhỏ, tự chứa, đánh số tăng dần.
+- `assets/*`: stylesheet, quiz, simulator và component dùng chung giữa lesson.
+- `NOTES.md`: preference học tập và working notes.
+
+**Triết lý:** học sâu cần knowledge từ nguồn tin cậy, skill từ thực hành có feedback và wisdom từ tương tác thực tế với cộng đồng. Không tin hoàn toàn parametric knowledge; khi resources còn mỏng, ưu tiên tìm nguồn chất lượng cao.
+
+Phân biệt **fluency strength** là nhớ được ngay lúc vừa học và **storage strength** là giữ lâu. Lesson phải tạo desirable difficulty bằng retrieval practice, spacing và interleaving khi phù hợp.
+
+**Lesson:** mỗi lesson chỉ dạy một việc nhỏ gắn trực tiếp với mission, nằm trong zone of proximal development và hoàn thành nhanh. HTML phải dễ đọc, đẹp và liên kết tới lesson/reference khác. Mỗi lesson giới thiệu một primary source tốt và nhắc người học có thể hỏi tiếp agent.
+
+**Assets:** trước khi tạo lesson phải đọc component sẵn có. Style dùng chung là asset đầu tiên; logic có khả năng lặp lại phải đưa vào `assets/`, không copy inline qua nhiều lesson.
+
+**Mission:** nếu mục tiêu học chưa rõ hoặc `MISSION.md` trống, việc đầu tiên là hỏi vì sao người dùng muốn học. Khi mission thay đổi, xác nhận trước, cập nhật file và thêm learning record.
+
+**Knowledge và Skills:** chỉ dạy lượng kiến thức cần cho skill, có citation. Sau đó cho người dùng luyện qua vòng feedback nhanh, ưu tiên feedback tự động. Với quiz, các phương án trả lời nên có độ dài bằng nhau để format không làm lộ đáp án.
+
+**Wisdom:** khi câu hỏi cần kinh nghiệm thực tế, agent vẫn phân tích nhưng hướng người dùng tới cộng đồng uy tín như forum, lớp học hoặc nhóm thực hành nếu họ chấp nhận.
+
+Reference document là tinh chất dùng lâu dài; lesson thường chỉ đi qua một lần. Glossary sau khi tạo phải được tuân thủ nhất quán. `NOTES.md` giữ preference dạy học để các phiên sau không quên.
+
+## `to-questionnaire` — Chuyển khoảng trống tri thức thành bảng câu hỏi
+
+**Dùng khi:** người dùng không thể tự ra quyết định vì kiến thức nằm trong đầu một người khác.
+
+Nguyên tắc là **grill the send, not the subject**: không hỏi người dùng những fact họ không biết; chỉ phỏng vấn về việc gửi questionnaire.
+
+**Quy trình:**
+
+1. Hỏi questionnaire gửi cho ai: vai trò, chuyên môn và quan hệ với người dùng. Việc này quyết định tone và lượng context.
+2. Hỏi cần nhận lại gì: danh sách fact hoặc quyết định cụ thể người dùng phải có sau khi người kia trả lời.
+3. Viết `to-questionnaire-<slug>.md` trong thư mục hiện tại. Mọi nhu cầu ở bước 2 phải có ít nhất một câu hỏi bao phủ.
+
+**Cấu trúc file:** tiêu đề; Purpose; From/To/How answers will be used; một đoạn Context; hướng dẫn trả lời với deadline và effort; các nhóm câu hỏi theo `##`, quan trọng nhất trước; mỗi câu chỉ hỏi một ý và có answer stub; thêm “Why this matters” khi câu dễ bị hiểu sai; cuối cùng là câu “Anything else?”.
+
+Questionnaire phải dùng được cả bất đồng bộ và trong cuộc họp. Câu trả lời một phần hoặc “I don't know” vẫn được xem là có ích.
+
+## `wait-what` — Khoan, ý là gì?
+
+Skill dùng ngay sau khi thông điệp của agent không truyền đạt được ý.
+
+Nó yêu cầu agent:
+
+- Dừng luồng giải thích hiện tại.
+- Thêm lượng context còn thiếu.
+- Viết lại bằng ASD-STE100 Simplified Technical English.
+- Dùng ubiquitous language đã được thống nhất trong `CONTEXT.md`.
+
+Nó là biện pháp sửa sau khi hiểu nhầm đã xảy ra; `grill-with-docs` là biện pháp phòng ngừa bằng cách thống nhất ngôn ngữ từ đầu.
+
+## `writing-for-agents` — Viết tài liệu mà agent thực thi ổn định
+
+Skill này là tài liệu tham chiếu cho `SKILL.md`, `AGENTS.md`, `CLAUDE.md` và mọi tài liệu agent đọc qua một đường dẫn. Mục tiêu là làm agent lặp lại cùng một **quy trình**, không bắt mọi lần phải tạo cùng output.
+
+### Context pointer
+
+Context pointer là một câu đang nằm trong context, trỏ đến tài liệu chưa tải và nói rõ điều kiện phải đọc nó. Skill description hoặc dòng trong `AGENTS.md` đều là pointer. Wording quyết định khả năng kích hoạt mạnh hơn bản thân target.
+
+Pointer cần nêu tài liệu là gì và từng nhánh tình huống làm nó cần thiết. Đặt leading word ở đầu, giữ một trigger cho mỗi nhánh thật sự khác và bỏ phần identity đã có trong body. Pointer luôn được tải nên từng từ đều tốn context.
+
+### Hai loại tải
+
+- Context load: token và sự chú ý bị tiêu mỗi turn bởi nội dung luôn được tải.
+- Cognitive load: gánh nặng lên con người phải nhớ tài liệu nào tồn tại và khi nào gọi nó.
+
+Tài liệu sau pointer giảm context load nhưng pointer vẫn có chi phí; tài liệu không pointer đặt toàn bộ trách nhiệm lên con người.
+
+### Information hierarchy
+
+1. In-file step: hành động chính theo thứ tự.
+2. In-file reference: định nghĩa/quy tắc cần tra ngay trong file.
+3. Disclosed reference: tài liệu tách riêng chỉ tải khi pointer kích hoạt.
+
+Progressive disclosure là đẩy reference xuống tầng ba để luồng step vẫn rõ. Nội dung mọi nhánh đều cần thì inline; nội dung chỉ một nhánh cần thì đưa sau pointer. Co-location giữ định nghĩa, rule và caveat của một khái niệm cạnh nhau. Sprawl là file quá dài dù từng dòng đều đúng; chữa bằng disclosure và chia theo branch/sequence.
+
+### Step và completion criterion
+
+Mỗi step phải có điều kiện hoàn thành rõ và đủ mạnh. Điều kiện mơ hồ khiến agent kết thúc sớm vì các bước phía sau kéo sự chú ý. Trước hết làm ranh giới “done” sắc hơn; chỉ tách sequence qua context boundary thật khi tiêu chí vốn dĩ khó định lượng và quan sát thấy agent vẫn vội.
+
+Demand của tiêu chí quyết định lượng legwork: “mọi model đã sửa đều được đối chiếu” mạnh hơn “tạo change list”. Tiêu chí tốt vừa check được vừa exhaustive.
+
+### Khi nào tách tài liệu
+
+Tách theo sequence khi nhìn thấy bước sau làm agent rush bước hiện tại. Tách theo invocation khi các nhánh được kích hoạt khác nhau. Mỗi lần tách đều tăng context hoặc cognitive load nên phải có lợi ích rõ.
+
+### Leading words
+
+Leading word là khái niệm ngắn đã có sức nặng trong pretraining, như `lesson`, `fog of war`, `tracer bullet`, `tight loop`. Lặp lại token này thay cho giải thích dài giúp neo cùng hành vi và tăng độ ổn định invocation. Ưu tiên từ đã tồn tại; từ tự chế cần tốn thêm định nghĩa.
+
+Negation dễ kích hoạt chính hành vi bị cấm. Ưu tiên mô tả hành vi tích cực cần làm. Chỉ dùng prohibition cho guardrail thật sự không thể diễn đạt dương, và vẫn phải ghép với target tích cực.
+
+### Pruning
+
+- Một ý nghĩa chỉ có một source of truth; duplication tăng token và chi phí bảo trì.
+- Environment như `package.json`, config, layout và `--help` cũng là source of truth. Không cache lại fact agent có thể tra rẻ; chỉ ghi convention, lý do và gotcha khó nhìn ra.
+- Xóa dòng không còn relevance hoặc đã stale để ngăn “sediment”.
+- Tìm no-op: câu nào không thay đổi hành vi so với mặc định của model thì xóa cả câu. Nếu leading word quá yếu, thay bằng từ mạnh hơn thay vì kéo dài giải thích.
+
+# In Progress — Skill Beta
+
+## `claude-handoff` — Bàn giao ngay cho Claude background agent
+
+Skill tạo bản tóm tắt handoff giống `handoff`, nhưng không lưu thành file. Nó chạy:
+
+`claude --bg --name "<descriptive name>" "<handoff summary>"`
+
+Agent mới bắt đầu ngay trong working directory hiện tại và trả control về lập tức; người dùng quản lý bằng `claude agents`. Luôn truyền `--name` hoặc `-n` với tên dễ nhận biết vì tên này xuất hiện trong job list, session picker và terminal title.
+
+Summary phải có `suggested skills`, chỉ trỏ đến artifact đã tồn tại thay vì chép lại, và che secret/PII vì toàn bộ summary trở thành prompt của agent mới. Argument từ người dùng mô tả trọng tâm phiên kế tiếp và phải được dùng để điều chỉnh summary.
+
+## `implement-spec` — Triển khai trọn một spec thành một PR
+
+Skill nhận một spec đã có ticket đi kèm và tạo ra một PR duy nhất trên một branch, triển khai toàn bộ spec.
+
+**Ticket không phải danh sách bước tuần tự.** Chúng là một **task graph** với quan hệ blocking giữa các ticket, nên luôn tồn tại một **frontier** gồm những ticket đã sẵn sàng để nhận. Mỗi lần một ticket hoàn tất, frontier mở rộng và các implementer mới được kích hoạt ngay để chạy song song tối đa.
+
+**Giao tiếp với subagent phải thưa.** Trao đổi chủ yếu qua **context pointer**: trỏ tới spec, ticket, ghi chú nghiên cứu và commit trước đó. Không lặp lại thông tin mà pointer đã dẫn tới được.
+
+**Các bước:**
+
+- Đọc spec và ticket, đủ để nắm được task graph.
+- (tùy chọn) Dùng **exploration subagent** khảo sát trước phần codebase hoặc tài liệu bên ngoài mà ticket cần. Subagent này phải lưu được file: ghi chú markdown để ở thư mục ngoài repo để mọi subagent sau đều đọc được. Nhờ vậy **implementer subagent** chỉ tập trung viết code thay vì khảo sát lại.
+- Tạo branch và một draft PR, đánh dấu PR sẽ đóng issue của spec và các ticket.
+- Giao mỗi ticket cho một **implementer subagent**, chạy trong worktree riêng trên branch riêng, chạy nền khi có thể.
+- Implementer xong thì dùng **merger subagent** gộp phần việc đó về branch của PR.
+- Nếu việc gộp làm frontier thay đổi, kích hoạt tiếp implementer cho những ticket vừa được mở khóa.
+- Hết ticket thì chạy `/code-review` trên branch của PR và sửa toàn bộ vấn đề trong một implementer subagent duy nhất.
+- Chuyển PR sang ready for review, rồi dọn sạch worktree của mọi implementer subagent.
+
+## `loop-me` — Đặc tả các vòng lặp có thể ủy quyền
+
+Skill chạy `grilling` có trạng thái để tạo duy nhất một loại output: workflow spec.
+
+**Loop lens:** loop là pattern lặp lại trong đời sống, từ sự nghiệp, tuần, buổi sáng đến một hoạt động cụ thể. Tính lặp làm hành vi dễ dự đoán và đáng ủy quyền. Workflow là đặc tả của loop; một lần workflow chạy chính là một instance của loop. Source of truth nằm trong `workflows/*.md`.
+
+**Từ vựng:**
+
+- Trigger: event hoặc schedule khởi động mỗi run; event thường hiệu quả hơn.
+- Checkpoint: điểm con người xác minh hoặc quyết định; workflow có thể không cần checkpoint hoặc không dùng AI.
+- Push right: đẩy checkpoint càng muộn càng tốt, làm tối đa trước khi hỏi người.
+- Brief: tóm tắt sẵn sàng cho quyết định, nói output gì, vì sao và link tới asset; không đổ raw output cho người duyệt.
+
+Không bắt workflow phải có AI, checkpoint, schedule hoặc cấu trúc cứng. Chỉ thêm khi grilling chứng minh cần.
+
+Một workflow spec chỉ hoàn tất khi implementer agent có thể xây mà không hỏi thêm câu nào. `NOTES.md` giữ fact về thế giới, tool, channel và thuật ngữ của người dùng; nếu còn mỏng, phỏng vấn về đời sống/quy trình trước khi viết workflow.
+
+## `retro` — Nhìn lại một phiên làm việc
+
+Skill chạy retrospective trên một phiên code. Mục tiêu không phải chấm điểm phiên vừa rồi mà là **cải thiện môi trường** của coding agent để những lần chạy sau tốt hơn.
+
+Trước tiên gọi skill `writing-for-agents` để lấy style guide. Sau đó đọc nguồn gốc của phiên mà người dùng chỉ định, đôi khi phải lục session log trên máy; nếu người dùng không chỉ định thì mặc định lấy phiên hiện tại.
+
+**Bảy nhóm ứng viên cải thiện:**
+
+- Navigation: agent tìm đúng file có dễ không, có dependency ẩn giữa các file không, một **navigation pointer** có giúp được không? Dùng khi phiên tốn nhiều thời gian chỉ để tìm một mẩu thông tin.
+- Automated checks: có check tự động nào bắt được lỗi agent vừa mắc không, như lint, type, test, filesystem linter? Dùng khi agent mắc lỗi lẽ ra máy đã bắt được.
+- Coding standards: có nên thêm luật mới cho **reviewer agent** không, hay có luật nào nên bỏ và làm rõ lại? Dùng khi reviewer agent không bắt được lỗi.
+- Global `AGENTS.md`: có chỉ dẫn lái nào nên chuyển sang coding standards hoặc automated check không? Dùng khi file `AGENTS.md` phình to, ở trong repo hoặc ở phạm vi global của người dùng.
+- Tool economy: agent có gọi tool đắt mà lẽ ra tinh gọn được không, có tooling riêng nào như CLI hay MCP tiêu tốn token bất thường không? Dùng khi agent thực hiện một tool call đắt.
+- No-ops: tìm những chỉ dẫn trong file steering mà thực tế không làm đổi hành vi agent. Dùng khi file steering đã lớn và cồng kềnh.
+- Information access: tìm cơ hội mở rộng quyền truy cập thông tin cho agent, như tee log của dev server hay quyền đọc dịch vụ bên thứ ba. Dùng khi một thông tin then chốt đã không đến được tay agent.
+
+Trình bày các ứng viên cho người dùng theo thứ tự mức độ nghiêm trọng.
+
+**Implementation và review chịu áp lực khác nhau.** Implementation agent gánh **context pressure** lớn nhất vì vừa khảo sát, vừa viết code, vừa gỡ lỗi. Review agent nhẹ nhất vì chỉ nhận một diff nên không cần khảo sát, thường cũng không phải viết code hay debug. Hệ quả: áp coding standards là việc của review agent, không phải implementation agent.
+
+**Vai trò từng file:** `CLAUDE.md` và `AGENTS.md` bị đẩy vào context window của mọi agent làm việc trong repo nên phải dùng cực kỳ tiết kiệm, thường chỉ để chứa **navigation pointer** sang file khác. `CODING_STANDARDS.md` được đọc lúc review chứ không phải lúc implement; nếu vượt 1.000 dòng thì thêm navigation pointer sang thư mục docs. Docs dùng làm file tham chiếu được file khác trỏ tới, nên tìm docs sẵn có trước khi viết mới. Skill dùng cho docs, vì description của skill đi thẳng vào context window của agent, hoặc dùng cho lệnh gọi tay.
+
+## `setup-ts-deep-modules` — Ép package TypeScript thành deep module
+
+**Mục tiêu:** package chỉ công khai các file ở root làm entry point; mọi file trong subfolder đều private. Package có thể có nhiều entry point nhỏ như `index.ts`, `client.ts`, `server.ts`, không bắt buộc một barrel khổng lồ.
+
+Layout chuẩn gồm `<packages-root>/<name>/index.ts`, `lib/` cho implementation và `tests/` cho test/fixture.
+
+**Bốn rule dependency-cruiser, đều mức error:**
+
+1. Code bên ngoài chỉ import root entry point, không deep-import subfolder.
+2. File implementation trong cùng package được import lẫn nhau tự do.
+3. Test chỉ đi qua entry point của package và fixture test của chính nó; không chọc internals, kể cả internals cùng package.
+4. Cấm dependency cycle.
+
+Layering giữa các package là vấn đề khác, chỉ để stub trong config.
+
+**Bảy bước:**
+
+1. Phát hiện package manager từ lockfile, chọn `src/packages` nếu có `src/`, nếu không là `packages`; kiểm tra config dependency-cruiser cũ và merge thay vì overwrite.
+2. Cài `dependency-cruiser` vào devDependencies.
+3. Copy template thành `.dependency-cruiser.cjs`, đặt đúng `PACKAGES_ROOT` và giữ đủ bốn forbidden rule.
+4. Thêm script `lint:boundaries`, đưa nó vào umbrella check cùng typecheck; không sửa `tsconfig` hoặc thêm path alias.
+5. Tạo package `example` làm template: root entry point gọi `lib/impl.ts`; test chỉ import `../index`.
+6. Chứng minh rule hoạt động: chạy sạch phải pass → thêm tạm deep import trong test phải fail với `tests-through-entrypoints` → xóa import và chạy lại phải pass.
+7. Tạo README trong packages root giải thích layout, entry point, `lib`, `tests`, lệnh lint và khuyến cáo tránh barrel. Thêm một context pointer từ `CLAUDE.md`, nếu không có thì `AGENTS.md`.
+
+Package phải phẳng ở cấp root; internals có thể lồng sâu. Dùng `.cjs` để `module.exports` hoạt động cả khi repo có `"type": "module"`. Không được làm phẳng `$1` back-reference trong rule vì nó cho phép package truy cập internals của chính nó.
+
+## `writing-beats` — Viết bài theo từng nhịp
+
+Skill thuộc pha **exploit**: nguyên liệu đã cố định, nhiệm vụ là chọn một đường đi qua nó. Nếu chưa có output path, hỏi đúng một lần.
+
+**Quy trình:**
+
+1. Chốt prerequisite: độc giả đã biết khái niệm nào trước khi vào bài.
+2. Đề xuất 2–3 starting beat khác nhau, chỉ dựa trên concept đã grounded; nói mỗi beat sẽ ground thêm gì và mở khóa hướng nào.
+3. Người dùng chọn; chỉ ghi đúng beat đó vào article file rồi dừng.
+4. Đọc lại file từ disk, đề xuất 2–3 next beat có thể đi từ grounded set hiện tại.
+5. Lặp tới khi hành trình kết thúc tự nhiên.
+
+**Grounding:** concept phải được độc giả biết từ prerequisite hoặc được một beat trước giới thiệu rồi mới được beat sau dựa vào. Một beat vừa yêu cầu concept đã grounded, vừa ground concept mới. Nếu beat hấp dẫn cần concept chưa grounded, phải thêm grounding beat trước hoặc nâng concept thành prerequisite.
+
+Beat là một chuyển động trong hành trình: dựng cảnh, chốt luận điểm, hỏi, aside hoặc đổi góc. Nó có thể là một câu, đoạn ngắn hoặc vài đoạn cho một vignette; nếu cần nhiều heading và quá nhiều ý thì phải tách.
+
+Mỗi lần chỉ append một beat, luôn đọc lại file để giữ nguyên sửa đổi của người dùng. Có thể sửa beat cụ thể khi được yêu cầu. Bài kết thúc khi journey đủ, không phải khi dùng hết nguyên liệu.
+
+## `writing-fragments` — Khai thác mảnh viết chưa có cấu trúc
+
+Skill thuộc pha **explore**: mở rộng những gì có thể viết, chưa chọn outline hoặc cấu trúc bài. Nó chạy grilling về chủ đề, và append mọi fragment từ cả người dùng lẫn agent vào một file Markdown.
+
+Nếu chưa có path, hỏi một lần. Ngay từ prompt đầu tiên đã phải bắt đầu thu fragment. Lần ghi đầu tạo đúng một H1 với working title; không metadata, mục lục hoặc ngày.
+
+**Fragment** là mảnh chữ có thể sống sót vào bài cuối và tác giả hiểu được, nhưng chưa cần tự chứa cho độc giả mới. Nó có thể là câu sắc, claim + lý do, vignette, code, scenario, analogy, nửa ý nghĩ, quote, đoạn hội thoại, cluster quan sát, lời than, punchline hoặc leading word.
+
+Leading word là fragment giá trị nhất vì một từ đúng có thể neo cấu trúc, transition và title của bài sau này.
+
+Các fragment ngăn bằng horizontal rule `---`; không heading trong body, tag hoặc thứ tự cưỡng ép. Trước mỗi write phải đọc lại file và giữ mọi edit/reorder/delete của người dùng. Mặc định chỉ append, nhưng lệnh cắt, viết lại hoặc merge fragment được xử lý trực tiếp.
+
+## `writing-shape` — Tạo hình bài viết từ nguyên liệu thô
+
+Skill cũng thuộc pha **exploit**, nhưng làm theo paragraph/block thay vì beat lựa chọn. File nguyên liệu là read-only; article được viết sang file riêng.
+
+**Vòng lặp:**
+
+1. Đọc toàn bộ input pile, bất kể nó là fragment list, raw prose hay transcript.
+2. Chốt prerequisite và grounded concepts độc giả mang vào.
+3. Đề xuất 2–3 opening, mỗi opening ngầm chọn thesis/góc khác; buộc người dùng chọn hoặc kết hợp.
+4. Sau opening, hỏi độc giả cần nghe gì tiếp theo; lấy material từ pile, chọn format có chủ ý, chỉ dựa trên concept đã grounded và ground thêm concept mới.
+5. Ghi ngay từng block đã thống nhất vào article file.
+6. Lặp đến khi người dùng xác nhận bài xong.
+
+Agent phải phản biện transition, cắt paragraph không tạo giá trị, phát hiện câu làm hai việc và kiểm tra bài có giữ lời hứa của opening không.
+
+Pile là mỏ nguyên liệu, không phải script: fragment có thể paraphrase, tách hoặc gộp. Nếu bài cần example/fact mà pile không có, nêu gap và yêu cầu người dùng bổ sung hoặc cắt hướng đó; skill không tự khai thác fragment mới.
+
+**Chọn format:** prose cho lập luận, list cho item song song; callout chỉ cho tip/note thật sự làm lệch mạch chính; table khi cấu trúc cùng field lặp ít nhất ba lần; quote khi wording gốc quan trọng; code block cho đoạn nhiều dòng/runnable, inline code cho identifier.
+
+Đọc lại article trước mỗi write, giữ edit của người dùng và chỉ sửa block được chỉ định. Không sửa raw material, publish, format theo platform hoặc thêm frontmatter khi chưa được yêu cầu.
+
+# Misc — Skill giữ lại nhưng ít dùng
+
+## `git-guardrails-claude-code` — Chặn lệnh Git nguy hiểm
+
+Skill cài `PreToolUse` hook của Claude Code để chặn trước khi lệnh chạy:
+
+- Mọi biến thể `git push`, kể cả force.
+- `git reset --hard`.
+- `git clean -f` và `git clean -fd`.
+- `git branch -D`.
+- `git checkout .` và `git restore .`.
+
+**Quy trình:** hỏi phạm vi project hay global → copy `scripts/block-dangerous-git.sh` vào `.claude/hooks/` tương ứng → `chmod +x` → merge hook vào `hooks.PreToolUse` của `.claude/settings.json` mà không overwrite setting khác → hỏi người dùng có muốn thay danh sách pattern → test bằng JSON giả lập lệnh `git push`.
+
+Test thành công khi script exit code 2 và in thông báo `BLOCKED` ra stderr. Claude nhận thông báo rằng nó không có thẩm quyền dùng lệnh đó.
+
+## `migrate-to-shoehorn` — Thay type assertion trong test
+
+`@total-typescript/shoehorn` cho phép truyền dữ liệu một phần trong test mà TypeScript vẫn hỗ trợ type/autocomplete. Chỉ dùng trong test, không dùng production.
+
+**Mapping:**
+
+- `as Type` → `fromPartial({...})` khi object chỉ có một phần field nhưng các field có mặt vẫn đúng type.
+- `as unknown as Type` → `fromAny({...})` khi cố tình truyền dữ liệu sai type để test error path.
+- `fromExact()` khi muốn buộc đủ object, có thể đổi sang `fromPartial()` sau.
+
+**Workflow:** hỏi file test và nhu cầu data → cài package → tìm assertion trong `*.test.ts`/`*.spec.ts` → thay đúng helper → thêm import → chạy typecheck. Lợi ích là bỏ object giả khổng lồ và tránh double assertion, nhưng không biến nó thành lối thoát type safety trong code thật.
+
+## `scaffold-exercises` — Dựng cấu trúc bài tập
+
+Skill tạo exercise tree rồi chạy `pnpm ai-hero-cli internal lint` và commit.
+
+**Naming:** section là `XX-section-name/`; exercise là `XX.YY-exercise-name/`; toàn bộ dùng dash-case.
+
+**Variant:** mỗi exercise có ít nhất một trong `problem/`, `solution/`, `explainer/`. Khi chỉ dựng stub và plan không nói rõ, mặc định dùng `explainer/`.
+
+Mỗi variant có `readme.md` không rỗng và không link hỏng. Có code thì cần `main.ts` dài hơn một dòng; stub readme-only được phép.
+
+**Workflow:** parse plan → tạo directory → tạo readme tối thiểu có title/description → chạy lint → sửa tới khi pass. Linter cũng cấm `.gitkeep`, `speaker-notes.md`, lệnh `pnpm run exercise` trong readme và yêu cầu primary variant hợp lệ.
+
+Khi đổi số hoặc di chuyển exercise phải dùng `git mv` để giữ lịch sử, cập nhật prefix và chạy lint lại.
+
+## `setup-pre-commit` — Thiết lập kiểm tra trước commit
+
+Skill cài Husky pre-commit hook, lint-staged chạy Prettier trên staged files, Prettier config khi chưa có, cùng typecheck và test.
+
+**Quy trình:**
+
+1. Phát hiện npm/pnpm/yarn/bun từ lockfile; không rõ thì mặc định npm.
+2. Cài `husky`, `lint-staged`, `prettier` dưới devDependencies.
+3. Chạy `npx husky init`, tạo `.husky/` và `prepare: "husky"`.
+4. Tạo `.husky/pre-commit`: chạy lint-staged, typecheck và test bằng package manager đã phát hiện. Nếu `package.json` không có typecheck/test script thì bỏ dòng tương ứng và báo người dùng.
+5. Tạo `.lintstagedrc` để chạy `prettier --ignore-unknown --write` trên mọi staged file.
+6. Chỉ tạo `.prettierrc` mặc định khi repo chưa có config Prettier.
+7. Xác minh hook tồn tại và executable, config tồn tại, prepare đúng, rồi chạy `npx lint-staged`.
+8. Stage và commit; commit chính là smoke test vì hook mới sẽ chạy.
+
+Husky v9+ không cần shebang. `--ignore-unknown` bỏ qua file Prettier không parse được. Thứ tự hook là format staged files trước, sau đó full typecheck và test.
+
+# Ghi chú phạm vi
+
+Repository còn có các tài liệu hỗ trợ như `PHASE-BOUNDARIES.md`, `AGENT-BRIEF.md`, `OUT-OF-SCOPE.md`, `HTML-REPORT.md`, `LOGIC.md`, `UI.md`, `tests.md`, `mocking.md`, các template domain/ADR, script và config mẫu. Tài liệu này Việt hóa toàn bộ hành vi được khai báo trong 37 file `SKILL.md`; các file hỗ trợ chỉ được giải thích tại nơi `SKILL.md` sử dụng chúng, không được dịch nguyên văn riêng.
+
+Nhóm `deprecated` hiện không có skill.
+</script>
+<script>
+const source=document.getElementById("source").textContent.trim();
+const lines=source.split("\n");
+const overview=[];
+const details={};
+let inTable=false;
+let current=null;
+for(const line of lines){
+  if(line.startsWith("| Nhóm |")){inTable=true;continue}
+  if(inTable&&line.startsWith("|---")){continue}
+  if(inTable&&line.startsWith("| ")){
+    const cells=line.split("|").slice(1,-1).map(value=>value.trim().replaceAll("`",""));
+    if(cells.length===5)overview.push({group:cells[0],name:cells[1],vi:cells[2],invocation:cells[3],desc:cells[4]});
+    continue
+  }
+  if(inTable&&line.startsWith("# "))inTable=false;
+  const match=line.match(/^## `([^`]+)` — (.+)$/);
+  if(match){current={name:match[1],title:match[2],body:[]};details[current.name]=current;continue}
+  if(current&&line.startsWith("# ")){current=null;continue}
+  if(current)current.body.push(line)
+}
+const escapeHtml=value=>value.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+const inline=value=>escapeHtml(value).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");
+const glossary=[
+  {id:"adapter",term:"Adapter",aliases:["adapter","adapters"],definition:"Một implementation cụ thể đáp ứng interface tại một seam; tên gọi mô tả vai trò mà nó lấp vào.",skills:"codebase-design"},
+  {id:"adr",term:"ADR",aliases:["ADR","ADRs"],definition:"Architecture Decision Record: bản ghi một quyết định khó đảo ngược, lý do chọn và các phương án đã cân nhắc.",skills:"domain-modeling, grill-with-docs"},
+  {id:"afk",term:"AFK",aliases:["AFK"],definition:"Agent làm việc độc lập mà không cần người dùng tham gia trực tiếp trong lúc xử lý.",skills:"wayfinder, research"},
+  {id:"agent-brief",term:"Agent brief",aliases:["agent brief","agent briefs"],definition:"Bản giao việc bền vững, đủ context, acceptance criteria và bằng chứng để một agent mới có thể bắt đầu.",skills:"triage"},
+  {id:"artifact",term:"Artifact",aliases:["artifact","artifacts"],definition:"Sản phẩm hữu hình được tạo trong quá trình làm việc, như spec, report, prototype, file nghiên cứu hoặc script.",skills:"handoff, prototype, research"},
+  {id:"barrel-file",term:"Barrel file",aliases:["barrel file","barrel files","barrel"],definition:"File gom và re-export nhiều phần của cây module; dễ làm public surface phình to và che dependency thật.",skills:"setup-ts-deep-modules"},
+  {id:"beat",term:"Beat",aliases:["beat","beats"],definition:"Một chuyển động nhỏ trong hành trình bài viết: dựng cảnh, chốt ý, đặt câu hỏi hoặc đổi góc rồi dừng.",skills:"writing-beats"},
+  {id:"blast-radius",term:"Blast radius",aliases:["blast radius"],definition:"Phạm vi file, caller hoặc subsystem bị ảnh hưởng khi thực hiện một thay đổi.",skills:"to-tickets"},
+  {id:"blocking-edge",term:"Blocking edge",aliases:["blocking edge","blocking edges","blocker","blockers"],definition:"Quan hệ phụ thuộc nói rằng một ticket chỉ có thể bắt đầu sau khi ticket khác hoàn tất.",skills:"to-tickets, wayfinder"},
+  {id:"code-smell",term:"Code smell",aliases:["code smell","code smells","smell baseline"],definition:"Dấu hiệu gợi ý thiết kế có vấn đề; là heuristic cần phán đoán, không mặc định là vi phạm cứng.",skills:"code-review"},
+  {id:"cognitive-load",term:"Cognitive load",aliases:["cognitive load"],definition:"Gánh nặng lên con người khi phải nhớ tài liệu nào tồn tại và lúc nào cần gọi tới nó.",skills:"writing-for-agents"},
+  {id:"completion-criterion",term:"Completion criterion",aliases:["completion criterion","completion criteria"],definition:"Điều kiện kiểm tra được để biết một bước thật sự hoàn thành, thay vì kết thúc vì cảm giác đã đủ.",skills:"writing-for-agents, diagnosing-bugs"},
+  {id:"context-md",term:"CONTEXT.md",aliases:["CONTEXT.md"],definition:"Glossary của project: chứa ngôn ngữ domain chuẩn, không chứa implementation detail hoặc spec.",skills:"domain-modeling, grill-with-docs"},
+  {id:"context-load",term:"Context load",aliases:["context load"],definition:"Token và sự chú ý bị tiêu bởi nội dung luôn nằm trong context của agent ở mọi turn.",skills:"writing-for-agents"},
+  {id:"context-pointer",term:"Context pointer",aliases:["context pointer","context pointers"],definition:"Một dòng trong context trỏ tới tài liệu bên ngoài và mô tả điều kiện khiến agent phải đọc tài liệu đó.",skills:"writing-for-agents, handoff"},
+  {id:"context-window",term:"Context window",aliases:["context window","context windows"],definition:"Lượng ngữ cảnh model có thể giữ trong một phiên; context quá lớn làm khả năng suy luận suy giảm.",skills:"ask-matt, to-tickets"},
+  {id:"deep-module",term:"Deep module",aliases:["deep module","deep modules","module sâu"],definition:"Module có interface nhỏ nhưng che giấu nhiều hành vi và complexity phía sau.",skills:"codebase-design, improve-codebase-architecture"},
+  {id:"deletion-test",term:"Deletion test",aliases:["deletion test"],definition:"Tưởng tượng xóa module: nếu complexity tràn về nhiều caller thì module đang tạo giá trị; nếu biến mất thì có thể chỉ là pass-through.",skills:"codebase-design, improve-codebase-architecture"},
+  {id:"dependency-cycle",term:"Dependency cycle",aliases:["dependency cycle","dependency cycles","cycle","cycles"],definition:"Vòng phụ thuộc nơi A cần B và qua một chuỗi dependency, B lại cần A.",skills:"setup-ts-deep-modules"},
+  {id:"depth",term:"Depth",aliases:["depth"],definition:"Mức leverage mà interface cung cấp: caller nhận được bao nhiêu hành vi so với lượng interface phải học.",skills:"codebase-design"},
+  {id:"design-tree",term:"Design tree",aliases:["design tree","decision tree"],definition:"Cây quyết định nơi câu trả lời ở nhánh trước mở khóa các câu hỏi phụ thuộc phía sau.",skills:"grilling"},
+  {id:"domain-model",term:"Domain model",aliases:["domain model","domain modeling","mô hình nghiệp vụ"],definition:"Hệ thống khái niệm, quan hệ và ngôn ngữ dùng để mô tả nghiệp vụ của project.",skills:"domain-modeling, grill-with-docs"},
+  {id:"entry-point",term:"Entry point",aliases:["entry point","entry points"],definition:"File hoặc interface công khai mà code bên ngoài được phép dùng để đi vào package/module.",skills:"setup-ts-deep-modules"},
+  {id:"expand-contract",term:"Expand-contract",aliases:["expand-contract","expand–contract"],definition:"Chiến lược refactor rộng: thêm dạng mới song song, migrate dần caller, rồi xóa dạng cũ.",skills:"to-tickets"},
+  {id:"exploit",term:"Exploit",aliases:["exploit"],definition:"Pha đã ngừng khám phá và bắt đầu chọn một cấu trúc cụ thể để khai thác nguyên liệu hiện có.",skills:"writing-beats, writing-shape"},
+  {id:"explore",term:"Explore",aliases:["explore"],definition:"Pha mở rộng không gian ý tưởng và thu nguyên liệu mà chưa cam kết vào outline hoặc cấu trúc.",skills:"writing-fragments"},
+  {id:"feedback-loop",term:"Feedback loop",aliases:["feedback loop","feedback loops","vòng phản hồi"],definition:"Cơ chế chạy nhanh cho kết quả pass/fail rõ ràng để biết thay đổi đang tiến gần hay xa mục tiêu.",skills:"diagnosing-bugs, teach"},
+  {id:"flow",term:"Flow",aliases:["flow","flows","main flow"],definition:"Đường đi qua nhiều skill để biến một tình huống đầu vào thành kết quả cuối.",skills:"ask-matt"},
+  {id:"fog-of-war",term:"Fog of war",aliases:["fog of war","fog"],definition:"Phần công việc còn trong phạm vi nhưng chưa thể phát biểu thành câu hỏi đủ chính xác để tạo ticket.",skills:"wayfinder"},
+  {id:"fragment",term:"Fragment",aliases:["fragment","fragments"],definition:"Mảnh chữ có thể sống trong bài cuối nhưng chưa cần tự chứa hoặc nằm trong một cấu trúc hoàn chỉnh.",skills:"writing-fragments, writing-shape"},
+  {id:"frontier",term:"Frontier",aliases:["frontier"],definition:"Tập câu hỏi hoặc ticket hiện có thể xử lý ngay vì mọi prerequisite hoặc blocker đã được giải quyết.",skills:"grilling, wayfinder, to-tickets"},
+  {id:"grilling",term:"Grilling",aliases:["grilling","grill"],definition:"Phỏng vấn quyết liệt theo từng vòng cho tới khi không còn nhánh quyết định nào bị giả định ngầm.",skills:"grilling, grill-me, grill-with-docs"},
+  {id:"grounding",term:"Grounding",aliases:["grounding","grounded","ground"],definition:"Đảm bảo độc giả đã biết một concept từ trước hoặc được bài giới thiệu trước khi phần sau dựa vào nó.",skills:"writing-beats, writing-shape"},
+  {id:"hitl",term:"HITL",aliases:["HITL","human in the loop","human-in-the-loop"],definition:"Human in the loop: công việc cần con người trực tiếp xác minh, quyết định hoặc thực hiện một bước.",skills:"wayfinder, wizard"},
+  {id:"hypothesis",term:"Hypothesis",aliases:["hypothesis","hypotheses","giả thuyết"],definition:"Lời giải thích có thể kiểm chứng và bác bỏ bằng một dự đoán cụ thể.",skills:"diagnosing-bugs"},
+  {id:"implementation",term:"Implementation",aliases:["implementation","implementations"],definition:"Code và cơ chế nằm bên trong module, tách biệt với interface mà caller nhìn thấy.",skills:"codebase-design"},
+  {id:"instrumentation",term:"Instrumentation",aliases:["instrumentation","instrument"],definition:"Điểm đo, log, debugger hoặc profiler được thêm để phân biệt các giả thuyết bằng bằng chứng runtime.",skills:"diagnosing-bugs"},
+  {id:"interface",term:"Interface",aliases:["interface","interfaces"],definition:"Mọi điều caller phải biết để dùng module đúng: type, invariant, error, ordering, config và đặc tính hiệu năng.",skills:"codebase-design, tdd"},
+  {id:"issue-tracker",term:"Issue tracker",aliases:["issue tracker","issue trackers","tracker"],definition:"Hệ thống lưu và quản lý issue/ticket, như GitHub, GitLab, Jira, Linear hoặc local Markdown.",skills:"setup-matt-pocock-skills, triage"},
+  {id:"leading-word",term:"Leading word",aliases:["leading word","leading words"],definition:"Từ ngắn có sức gợi mạnh, dùng lặp lại để neo cả một vùng hành vi hoặc khái niệm trong ít token.",skills:"writing-for-agents, writing-fragments"},
+  {id:"leverage",term:"Leverage",aliases:["leverage"],definition:"Lợi ích cho caller khi học một interface nhỏ nhưng nhận được nhiều khả năng phía sau.",skills:"codebase-design"},
+  {id:"locality",term:"Locality",aliases:["locality"],definition:"Khả năng giữ change, bug, knowledge và verification tập trung tại một module thay vì rải khắp caller.",skills:"codebase-design, improve-codebase-architecture"},
+  {id:"module",term:"Module",aliases:["module","modules"],definition:"Bất cứ thứ gì có interface và implementation, từ function, class tới package hoặc một lát cắt xuyên tầng.",skills:"codebase-design"},
+  {id:"on-ramp",term:"On-ramp",aliases:["on-ramp","on-ramps"],definition:"Tình huống khởi đầu riêng, như bug hoặc hàng đợi issue, sau đó nhập vào main flow.",skills:"ask-matt"},
+  {id:"phase-boundary",term:"Phase boundary",aliases:["phase boundary","phase boundaries"],definition:"Điểm chuyển giữa hai pha công việc, nơi quyết định tiếp tục, clear, handoff, subagent hay compact.",skills:"ask-matt"},
+  {id:"primary-source",term:"Primary source",aliases:["primary source","primary sources","nguồn sơ cấp"],definition:"Nguồn sở hữu thông tin gốc, như official docs, specification, source code, issue hoặc commit tạo ra quyết định.",skills:"research, resolving-merge-conflicts"},
+  {id:"progressive-disclosure",term:"Progressive disclosure",aliases:["progressive disclosure"],definition:"Đẩy reference chỉ vài nhánh cần ra file riêng sau context pointer để giữ luồng chính rõ ràng.",skills:"writing-for-agents"},
+  {id:"prototype",term:"Prototype",aliases:["prototype","prototypes","nguyên mẫu"],definition:"Code bỏ được tạo để trả lời một câu hỏi thiết kế cụ thể về logic, state hoặc UI.",skills:"prototype, wayfinder"},
+  {id:"red-green-refactor",term:"Red-green-refactor",aliases:["red-green-refactor","red → green","đỏ → xanh","đỏ–xanh"],definition:"Nhịp TDD: viết test thất bại, thêm code tối thiểu để test qua, rồi cải thiện cấu trúc ở thời điểm phù hợp.",skills:"tdd, implement"},
+  {id:"regression-test",term:"Regression test",aliases:["regression test","regression tests"],definition:"Test khóa lại hành vi từng bị lỗi để thay đổi tương lai không làm bug quay lại.",skills:"diagnosing-bugs"},
+  {id:"scope-creep",term:"Scope creep",aliases:["scope creep"],definition:"Hành vi hoặc công việc được thêm ngoài yêu cầu đã chốt trong spec.",skills:"code-review"},
+  {id:"seam",term:"Seam",aliases:["seam","seams"],definition:"Vị trí có thể thay đổi hành vi mà không sửa code tại đó; cũng là nơi interface được đặt và được test.",skills:"codebase-design, tdd"},
+  {id:"shallow-module",term:"Shallow module",aliases:["shallow module","shallow modules","module nông"],definition:"Module có interface gần phức tạp bằng implementation nên tạo ít leverage và thường chỉ chuyển tiếp.",skills:"codebase-design, improve-codebase-architecture"},
+  {id:"smart-zone",term:"Smart zone",aliases:["smart zone"],definition:"Phần context window nơi model vẫn còn suy luận sắc; vượt vùng này nên compact tại phase boundary gần nhất.",skills:"ask-matt"},
+  {id:"source-of-truth",term:"Source of truth",aliases:["source of truth","single source of truth"],definition:"Nơi có thẩm quyền duy nhất cho một fact hoặc hành vi, giúp tránh bản sao lệch nhau.",skills:"writing-for-agents, loop-me"},
+  {id:"spec",term:"Spec",aliases:["spec","specs","đặc tả"],definition:"Tài liệu chốt vấn đề, giải pháp, user story, quyết định triển khai, kiểm thử và phạm vi.",skills:"to-spec, implement"},
+  {id:"state-machine",term:"State machine",aliases:["state machine","state machines"],definition:"Mô hình gồm các trạng thái và transition hợp lệ giữa chúng.",skills:"triage, prototype"},
+  {id:"storage-strength",term:"Storage strength",aliases:["storage strength"],definition:"Độ bền dài hạn của kiến thức trong trí nhớ, khác với cảm giác nhớ trôi chảy ngay sau khi học.",skills:"teach"},
+  {id:"tdd",term:"TDD",aliases:["TDD","test-driven development"],definition:"Test-driven development: phát triển hành vi qua các vòng test đỏ rồi implementation tối thiểu làm test xanh.",skills:"tdd, implement"},
+  {id:"tracer-bullet",term:"Tracer bullet",aliases:["tracer bullet","tracer bullets","tracer-bullet"],definition:"Lát cắt nhỏ nhưng đi xuyên các tầng để tạo một hành vi end-to-end có thể demo và xác minh độc lập.",skills:"to-tickets, tdd"},
+  {id:"triage",term:"Triage",aliases:["triage"],definition:"Quy trình phân loại, xác minh và đưa issue/PR vào trạng thái hành động phù hợp.",skills:"triage"},
+  {id:"ubiquitous-language",term:"Ubiquitous language",aliases:["ubiquitous language","domain language","ngôn ngữ domain"],definition:"Bộ thuật ngữ nhất quán được domain expert, developer, code và tài liệu cùng sử dụng.",skills:"domain-modeling, wait-what"},
+  {id:"vertical-slice",term:"Vertical slice",aliases:["vertical slice","vertical slices","lát cắt dọc"],definition:"Phần việc nhỏ đi xuyên mọi layer cần thiết và tạo ra hành vi người dùng hoàn chỉnh.",skills:"to-tickets, tdd"},
+  {id:"wide-refactor",term:"Wide refactor",aliases:["wide refactor","wide refactors"],definition:"Một thay đổi cơ học có blast radius lớn, không thể chia thành vertical slice độc lập mà vẫn giữ build xanh.",skills:"to-tickets"},
+  {id:"zone-proximal-development",term:"Zone of proximal development",aliases:["zone of proximal development","vùng phát triển gần"],definition:"Mức thử thách ngay trên khả năng hiện tại: đủ khó để tiến bộ nhưng chưa quá khó để mất feedback.",skills:"teach"}
+];
+function renderMarkdown(markdown){
+  const blocks=markdown.trim().split(/\n\s*\n/);
+  return blocks.map(block=>{
+    const blockLines=block.split("\n");
+    if(blockLines.every(line=>line.startsWith("- ")))return `<ul>${blockLines.map(line=>`<li>${inline(line.slice(2))}</li>`).join("")}</ul>`;
+    if(blockLines.every(line=>/^\d+\. /.test(line)))return `<ol class="steps">${blockLines.map(line=>`<li>${inline(line.replace(/^\d+\. /,""))}</li>`).join("")}</ol>`;
+    if(blockLines[0].startsWith("### "))return `<h3>${inline(blockLines.join(" ").slice(4))}</h3>`;
+    return `<p>${inline(blockLines.join(" "))}</p>`
+  }).join("")
+}
+const normalize=value=>value.toLocaleLowerCase("vi").normalize("NFD").replace(/\p{Diacritic}/gu,"");
+const glossaryById=new Map(glossary.map(item=>[item.id,item]));
+const glossaryByAlias=new Map();
+for(const item of glossary)for(const alias of item.aliases)glossaryByAlias.set(alias.toLocaleLowerCase("vi"),item);
+const glossaryAliases=[...glossaryByAlias.keys()].sort((a,b)=>b.length-a.length).map(alias=>alias.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+const glossaryPattern=new RegExp(`(?<![\\p{L}\\p{N}_])(${glossaryAliases.join("|")})(?![\\p{L}\\p{N}_])`,"giu");
+function linkGlossaryTerms(root){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  const textNodes=[];
+  while(walker.nextNode()){
+    const node=walker.currentNode;
+    if(node.parentElement.closest("code,button"))continue;
+    glossaryPattern.lastIndex=0;
+    if(glossaryPattern.test(node.nodeValue))textNodes.push(node)
+  }
+  for(const node of textNodes){
+    glossaryPattern.lastIndex=0;
+    const fragment=document.createDocumentFragment();
+    let cursor=0;
+    let match;
+    while((match=glossaryPattern.exec(node.nodeValue))){
+      fragment.append(node.nodeValue.slice(cursor,match.index));
+      const item=glossaryByAlias.get(match[0].toLocaleLowerCase("vi"));
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="term-link";
+      button.dataset.term=item.id;
+      button.textContent=match[0];
+      button.addEventListener("click",event=>{
+        event.stopPropagation();
+        showView("glossary",item.id)
+      });
+      fragment.append(button);
+      cursor=match.index+match[0].length
+    }
+    fragment.append(node.nodeValue.slice(cursor));
+    node.replaceWith(fragment)
+  }
+}
+const glossaryRows=document.getElementById("glossaryRows");
+const glossarySearch=document.getElementById("glossarySearch");
+const glossaryCount=document.getElementById("glossaryCount");
+const glossaryEmpty=document.getElementById("glossaryEmpty");
+for(const item of glossary.slice().sort((a,b)=>a.term.localeCompare(b.term,"en"))){
+  const row=document.createElement("tr");
+  row.id=`term-${item.id}`;
+  row.dataset.term=item.id;
+  row.dataset.search=normalize([item.term,item.aliases.join(" "),item.definition,item.skills].join(" "));
+  const aliases=item.aliases.filter(alias=>normalize(alias)!==normalize(item.term));
+  row.innerHTML=`<td data-label="Thuật ngữ"><span class="glossary-term">${escapeHtml(item.term)}</span>${aliases.length?`<span class="glossary-aliases">Cũng gặp: ${escapeHtml(aliases.join(", "))}</span>`:""}</td><td data-label="Giải thích">${escapeHtml(item.definition)}</td><td data-label="Xuất hiện trong"><code>${escapeHtml(item.skills)}</code></td>`;
+  glossaryRows.appendChild(row)
+}
+document.getElementById("glossaryTabCount").textContent=`${glossary.length}·`;
+function applyGlossaryFilter(){
+  const query=normalize(glossarySearch.value.trim());
+  let count=0;
+  for(const row of glossaryRows.children){
+    row.hidden=Boolean(query&&!row.dataset.search.includes(query));
+    if(!row.hidden)count+=1
+  }
+  glossaryCount.textContent=`${count} thuật ngữ đang hiển thị`;
+  glossaryEmpty.classList.toggle("show",count===0)
+}
+function focusGlossary(id){
+  const row=document.getElementById(`term-${id}`);
+  if(!row)return;
+  glossarySearch.value="";
+  applyGlossaryFilter();
+  for(const item of glossaryRows.children)item.classList.toggle("focused",item===row);
+  const behavior=window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth";
+  requestAnimationFrame(()=>requestAnimationFrame(()=>row.scrollIntoView({behavior,block:"center"})))
+}
+const productPhases=[
+  {title:"KHÁM PHÁ",skills:["ask-matt","research","grill-me","to-questionnaire","teach"]},
+  {title:"ĐỊNH HÌNH",skills:["domain-modeling","codebase-design","prototype","grill-with-docs"]},
+  {title:"LẬP KẾ HOẠCH",skills:["wayfinder","to-spec","to-tickets","triage"]},
+  {title:"BUILD",skills:["implement","implement-spec","tdd","setup-ts-deep-modules","wizard"]},
+  {title:"KIỂM CHỨNG",skills:["diagnosing-bugs","code-review","resolving-merge-conflicts","improve-codebase-architecture"]},
+  {title:"BÀN GIAO · LẶP",skills:["handoff","claude-handoff","retro","writing-for-agents","wait-what"]}
+];
+const productSupports=[
+  {title:"NỀN TẢNG · AN TOÀN",skills:["setup-matt-pocock-skills","setup-pre-commit","git-guardrails-claude-code"]},
+  {title:"TRUYỀN ĐẠT SẢN PHẨM",skills:["writing-fragments","writing-beats","writing-shape"]},
+  {title:"NÂNG CHẤT LƯỢNG",skills:["scaffold-exercises","migrate-to-shoehorn","grilling","loop-me"]}
+];
+const svgNamespace="http://www.w3.org/2000/svg";
+function addSvg(parent,name,attributes={},content=""){
+  const element=document.createElementNS(svgNamespace,name);
+  for(const [key,value] of Object.entries(attributes))element.setAttribute(key,String(value));
+  if(content)element.textContent=content;
+  parent.appendChild(element);
+  return element
+}
+function renderMapSkill(parent,name,x,y,width){
+  const info=overview.find(skill=>skill.name===name);
+  const manual=info?.invocation==="Gọi tay";
+  const node=addSvg(parent,"g",{class:`map-skill ${manual?"manual":"auto"}`,transform:`translate(${x} ${y})`,role:"button",tabindex:"0","aria-label":`${name}, ${manual?"gọi tay":"có thể tự gọi"}`});
+  addSvg(node,"rect",{width,height:28});
+  addSvg(node,"text",{x:10,y:18},name);
+  const open=()=>openSkillFromMap(name);
+  node.addEventListener("click",open);
+  node.addEventListener("keydown",event=>{
+    if(event.key==="Enter"||event.key===" "){event.preventDefault();open()}
+  })
+}
+function renderProductMap(){
+  const canvas=document.getElementById("productMapCanvas");
+  const phaseWidth=210;
+  const phaseGap=24;
+  const phaseStart=30;
+  const phaseY=126;
+  const phaseHeight=214;
+  addSvg(canvas,"path",{class:"map-branch-edge",d:"M720 78V98M135 98H1305"});
+  for(let index=0;index<productPhases.length;index+=1){
+    const center=phaseStart+index*(phaseWidth+phaseGap)+phaseWidth/2;
+    addSvg(canvas,"path",{class:"map-branch-edge",d:`M${center} 98V${phaseY}`})
+  }
+  for(let index=0;index<productPhases.length-1;index+=1){
+    const x=phaseStart+index*(phaseWidth+phaseGap);
+    addSvg(canvas,"path",{class:"map-main-edge",d:`M${x+phaseWidth} 238H${x+phaseWidth+phaseGap}`})
+  }
+  addSvg(canvas,"path",{class:"map-feedback-edge",d:"M1410 270H1426V368H14V270H30"});
+  addSvg(canvas,"text",{class:"map-edge-label",x:632,y:362},"SAI GIẢ ĐỊNH · QUAY LẠI HIỂU VẤN ĐỀ");
+  addSvg(canvas,"path",{class:"map-support-edge",d:"M135 340V402M369 340V402M603 340V402M837 340V402M1071 340V402M1305 340V402M250 402H1190"});
+  for(const center of [250,720,1190])addSvg(canvas,"path",{class:"map-support-edge",d:`M${center} 402V420`});
+  const root=addSvg(canvas,"g");
+  addSvg(root,"rect",{class:"map-root",x:530,y:20,width:380,height:58});
+  addSvg(root,"text",{class:"map-root-title",x:720,y:45},"BUILD PRODUCT");
+  addSvg(root,"text",{class:"map-root-sub",x:720,y:63},"problem → evidence → decision → increment → learning");
+  for(let index=0;index<productPhases.length;index+=1){
+    const phase=productPhases[index];
+    const x=phaseStart+index*(phaseWidth+phaseGap);
+    const group=addSvg(canvas,"g");
+    addSvg(group,"rect",{class:"map-phase-shell",x,y:phaseY,width:phaseWidth,height:phaseHeight});
+    addSvg(group,"rect",{class:"map-phase-head",x,y:phaseY,width:phaseWidth,height:42});
+    addSvg(group,"text",{class:"map-phase-index",x:x+12,y:phaseY+25},String(index+1).padStart(2,"0"));
+    addSvg(group,"text",{class:"map-phase-title",x:x+42,y:phaseY+25},phase.title);
+    phase.skills.forEach((skill,skillIndex)=>renderMapSkill(group,skill,x+13,phaseY+54+skillIndex*32,phaseWidth-26))
+  }
+  const supportLayouts=[{x:30,width:440},{x:500,width:440},{x:970,width:440}];
+  productSupports.forEach((support,index)=>{
+    const layout=supportLayouts[index];
+    const group=addSvg(canvas,"g");
+    addSvg(group,"rect",{class:"map-support-shell",x:layout.x,y:420,width:layout.width,height:180});
+    addSvg(group,"text",{class:"map-support-title",x:layout.x+14,y:444},support.title);
+    support.skills.forEach((skill,skillIndex)=>renderMapSkill(group,skill,layout.x+14,455+skillIndex*33,layout.width-28))
+  })
+}
+function showView(view,termId=""){
+  const views={skills:"skillsView",product:"productFlowView",glossary:"glossaryView"};
+  for(const [key,id] of Object.entries(views))document.getElementById(id).hidden=key!==view;
+  for(const tab of document.querySelectorAll("#viewTabs .tab"))tab.classList.toggle("active",tab.dataset.view===view);
+  if(view==="glossary"&&termId)focusGlossary(termId)
+}
+for(const tab of document.querySelectorAll("#viewTabs .tab"))tab.addEventListener("click",()=>showView(tab.dataset.view));
+glossarySearch.addEventListener("input",applyGlossaryFilter);
+applyGlossaryFilter();
+renderProductMap();
+const rows=document.getElementById("skillRows");
+const detailTemplate=document.getElementById("detailTemplate");
+const search=document.getElementById("search");
+const resultCount=document.getElementById("resultCount");
+const emptyState=document.getElementById("emptyState");
+const STORE_KEY="mattpocock-skills-vietsub:expanded";
+let activeGroup="All";
+const detailRows=new Map();
+const closeTimers=new Map();
+function readStore(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(!raw)return[];
+    const list=JSON.parse(raw);
+    return Array.isArray(list)?list.filter(name=>typeof name==="string"):[]
+  }catch(error){return[]}
+}
+const expanded=new Set(readStore());
+function saveStore(){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify([...expanded]))}catch(error){}
+}
+for(const skill of overview){
+  const detail=details[skill.name];
+  skill.body=detail?detail.body.join("\n").trim():"";
+  skill.search=normalize([skill.name,skill.vi,skill.desc,skill.body].join(" "));
+  const row=document.createElement("tr");
+  row.dataset.name=skill.name;
+  row.dataset.group=skill.group;
+  row.innerHTML=`<td data-label="Tên skill"><span class="skill-name">${escapeHtml(skill.name)}</span><span class="skill-vi">${escapeHtml(skill.vi)}</span><span class="skill-meta"><span class="tag">${escapeHtml(skill.group)}</span><span class="tag hot">${escapeHtml(skill.invocation)}</span></span></td><td data-label="Desc">${escapeHtml(skill.desc)}</td><td data-label="Nội dung"><button type="button" class="open-skill" aria-expanded="false">Xem nội dung →</button></td>`;
+  row.addEventListener("click",()=>toggleSkill(skill.name));
+  rows.appendChild(row);
+  linkGlossaryTerms(row)
+}
+function visibleSkills(){
+  const query=normalize(search.value.trim());
+  return overview.filter(skill=>(activeGroup==="All"||skill.group===activeGroup)&&(!query||skill.search.includes(query)))
+}
+function applyFilters(){
+  const visible=new Set(visibleSkills().map(skill=>skill.name));
+  for(const row of rows.querySelectorAll("tr[data-name]")){
+    const name=row.dataset.name;
+    const show=visible.has(name);
+    row.hidden=!show;
+    const detail=detailRows.get(name);
+    if(detail)detail.hidden=!show||!expanded.has(name)
+  }
+  resultCount.textContent=`${visible.size} skill đang hiển thị`;
+  emptyState.classList.toggle("show",visible.size===0)
+}
+function buildDetail(skill){
+  const cached=detailRows.get(skill.name);
+  if(cached)return cached;
+  const detail=detailTemplate.content.firstElementChild.cloneNode(true);
+  detail.dataset.detailFor=skill.name;
+  detail.querySelector('[data-detail="group"]').textContent=skill.group.toUpperCase();
+  detail.querySelector('[data-detail="name"]').textContent=skill.name;
+  detail.querySelector('[data-detail="vi"]').textContent=skill.vi;
+  detail.querySelector('[data-detail="invocation"]').textContent=skill.invocation.toUpperCase();
+  const desc=detail.querySelector('[data-detail="desc"]');
+  const content=detail.querySelector('[data-detail="content"]');
+  desc.textContent=skill.desc;
+  content.innerHTML=renderMarkdown(skill.body);
+  linkGlossaryTerms(desc);
+  linkGlossaryTerms(content);
+  const copy=detail.querySelector('[data-detail="copy"]');
+  copy.addEventListener("click",async event=>{
+    event.stopPropagation();
+    const link=`${location.href.split("#")[0]}#skill-${skill.name}`;
+    if(navigator.clipboard&&navigator.clipboard.writeText)await navigator.clipboard.writeText(link);
+    copy.textContent="Đã sao chép";
+    setTimeout(()=>copy.textContent="Sao chép link skill",1200)
+  });
+  detailRows.set(skill.name,detail);
+  return detail
+}
+function markRow(name,open){
+  const row=rows.querySelector(`tr[data-name="${name}"]`);
+  if(!row)return;
+  row.classList.toggle("selected",open);
+  const button=row.querySelector(".open-skill");
+  button.setAttribute("aria-expanded",String(open));
+  button.textContent=open?"Thu gọn ↑":"Xem nội dung →"
+}
+function expandSkill(name,animate=true){
+  const skill=overview.find(item=>item.name===name);
+  if(!skill)return;
+  const row=rows.querySelector(`tr[data-name="${name}"]`);
+  if(!row)return;
+  const detail=buildDetail(skill);
+  clearTimeout(closeTimers.get(name));
+  closeTimers.delete(name);
+  if(detail.previousElementSibling!==row)row.after(detail);
+  detail.hidden=row.hidden;
+  if(animate){
+    detail.classList.remove("open");
+    void detail.offsetHeight
+  }
+  detail.classList.add("open");
+  expanded.add(name);
+  markRow(name,true);
+  saveStore()
+}
+function collapseSkill(name){
+  expanded.delete(name);
+  markRow(name,false);
+  const detail=detailRows.get(name);
+  if(detail){
+    detail.classList.remove("open");
+    clearTimeout(closeTimers.get(name));
+    closeTimers.set(name,setTimeout(()=>{if(!expanded.has(name))detail.hidden=true},300))
+  }
+  saveStore()
+}
+function toggleSkill(name){
+  if(expanded.has(name))collapseSkill(name);else expandSkill(name)
+}
+function openSkillFromMap(name){
+  showView("skills");
+  activeGroup="All";
+  search.value="";
+  for(const tab of document.querySelectorAll("#tabs .tab"))tab.classList.toggle("active",tab.dataset.group==="All");
+  applyFilters();
+  expandSkill(name);
+  const row=rows.querySelector(`tr[data-name="${name}"]`);
+  const behavior=window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth";
+  history.replaceState(null,"",`#skill-${encodeURIComponent(name)}`);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>row.scrollIntoView({behavior,block:"center"})))
+}
+for(const tab of document.querySelectorAll("#tabs .tab"))tab.addEventListener("click",()=>{
+  activeGroup=tab.dataset.group;
+  for(const item of document.querySelectorAll("#tabs .tab"))item.classList.toggle("active",item===tab);
+  applyFilters()
+});
+search.addEventListener("input",applyFilters);
+const hashName=decodeURIComponent(location.hash.replace("#skill-",""));
+applyFilters();
+for(const name of [...expanded]){
+  if(overview.some(skill=>skill.name===name))expandSkill(name,false);else expanded.delete(name)
+}
+saveStore();
+if(overview.some(skill=>skill.name===hashName))expandSkill(hashName);
+const termTip=document.getElementById("termTip");
+let tipTimer=0;
+let tipTarget=null;
+function hideTip(){
+  clearTimeout(tipTimer);
+  tipTarget=null;
+  termTip.hidden=true
+}
+function placeTip(target){
+  const rect=target.getBoundingClientRect();
+  const tip=termTip.getBoundingClientRect();
+  const gap=8;
+  let top=rect.top-tip.height-gap;
+  if(top<gap)top=rect.bottom+gap;
+  top=Math.max(gap,Math.min(top,window.innerHeight-tip.height-gap));
+  let left=rect.left+rect.width/2-tip.width/2;
+  left=Math.max(gap,Math.min(left,window.innerWidth-tip.width-gap));
+  termTip.style.top=`${Math.round(top)}px`;
+  termTip.style.left=`${Math.round(left)}px`
+}
+function showTip(target){
+  const item=glossaryById.get(target.dataset.term);
+  if(!item)return;
+  tipTarget=target;
+  termTip.innerHTML=`<b>${escapeHtml(item.term)}</b>${escapeHtml(item.definition)}<span class="tip-skills">${escapeHtml(item.skills)}</span>`;
+  termTip.hidden=false;
+  placeTip(target)
+}
+function queueTip(target){
+  clearTimeout(tipTimer);
+  tipTimer=setTimeout(()=>showTip(target),120)
+}
+document.addEventListener("pointerover",event=>{
+  if(event.pointerType==="touch")return;
+  const target=event.target.closest(".term-link");
+  if(!target){if(tipTarget)hideTip();return}
+  if(target===tipTarget)return;
+  queueTip(target)
+});
+document.addEventListener("focusin",event=>{
+  const target=event.target.closest(".term-link");
+  if(target)showTip(target);else if(tipTarget)hideTip()
+});
+document.addEventListener("keydown",event=>{if(event.key==="Escape")hideTip()});
+document.addEventListener("click",()=>hideTip(),true);
+window.addEventListener("scroll",()=>{if(tipTarget)hideTip()},true);
+window.addEventListener("resize",()=>{if(tipTarget)hideTip()});
+</script>
+</body>
+</html>
