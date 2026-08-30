@@ -10,16 +10,23 @@ staging_dir="$(mktemp -d)"
 temp_manifest="$(mktemp)"
 trap 'rm -rf "$staging_dir"; rm -f "$temp_manifest"' EXIT
 
-jq -r '.skills[]' "$claude_manifest" | while IFS= read -r relative_path; do
-  source_dir="$repo_dir/${relative_path#./}"
+expected_count=0
+while IFS= read -r skill_md; do
+  source_dir="$(dirname "$skill_md")"
   skill_name="$(basename "$source_dir")"
-  if [ ! -f "$source_dir/SKILL.md" ]; then
-    echo "Missing promoted skill: $relative_path" >&2
+  if [ -e "$staging_dir/$skill_name" ]; then
+    echo "Duplicate skill name across buckets: $skill_name" >&2
     exit 1
   fi
   cp -R "$source_dir" "$staging_dir/$skill_name"
   perl -0pi -e 's/^disable-model-invocation: true\R//m' "$staging_dir/$skill_name/SKILL.md"
-done
+  expected_count=$((expected_count + 1))
+done < <(find "$repo_dir/skills" -mindepth 3 -maxdepth 3 -name SKILL.md -type f -not -path "*/deprecated/*" | sort)
+
+if [ "$expected_count" -eq 0 ]; then
+  echo "No skills found under $repo_dir/skills" >&2
+  exit 1
+fi
 
 mkdir -p "$target_dir"
 rsync -a --delete "$staging_dir/" "$target_dir/"
@@ -33,11 +40,10 @@ version="$base_version+codex.$revision"
 jq --arg version "$version" '.version = $version' "$codex_manifest" > "$temp_manifest"
 mv "$temp_manifest" "$codex_manifest"
 
-expected_count="$(jq '.skills | length' "$claude_manifest")"
 actual_count="$(find "$target_dir" -mindepth 2 -maxdepth 2 -name SKILL.md -type f | wc -l | tr -d ' ')"
 if [ "$actual_count" -ne "$expected_count" ]; then
   echo "Codex plugin skill count mismatch: expected $expected_count, got $actual_count" >&2
   exit 1
 fi
 
-echo "Codex plugin synchronized with $actual_count promoted skills at version $version"
+echo "Codex plugin synchronized with $actual_count skills at version $version"

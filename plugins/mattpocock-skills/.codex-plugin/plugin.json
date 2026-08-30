@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Matt Pocock Skills",
     "shortDescription": "Composable engineering workflows for Codex.",
-    "longDescription": "Twenty-five skills for planning, implementation, TDD, debugging, review, architecture, and productive engineering workflows.",
+    "longDescription": "Thirty-seven skills for planning, implementation, TDD, debugging, review, architecture, and productive engineering workflows.",
     "developerName": "Matt Pocock",
     "category": "Engineering",
     "capabilities": [
