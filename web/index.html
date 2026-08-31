@@ -188,7 +188,6 @@
   .empty{display:none}
   .empty.show{display:block}
   [hidden]{display:none!important}
-  .view-tabs{margin:16px 0 4px;padding-bottom:10px;border-bottom:1.2px solid var(--ink)}
   .term-link{display:inline;font:inherit;font-weight:700;color:var(--rust);background:transparent;border:0;border-bottom:1px dashed var(--rust);padding:0;cursor:pointer}
   .term-link:hover{color:var(--rust);background:var(--rust-soft);box-shadow:none;transform:none}
   .glossary-table{table-layout:fixed}
@@ -264,11 +263,93 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   }
+  .app-shell{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;width:100%;min-width:0}
+  .sidebar-slot{width:320px;min-width:0;transition:width .22s cubic-bezier(.2,.8,.2,1)}
+  .sidebar{width:320px;max-height:calc(100vh - 54px);position:sticky;top:16px;overflow-y:auto;
+           background:var(--white);border:1.2px solid var(--ink);padding:10px;transform:translateX(0);
+           transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+  .app-shell.nav-collapsed{gap:0}
+  .app-shell.nav-collapsed .sidebar-slot{width:0}
+  .app-shell.nav-collapsed .sidebar{transform:translateX(calc(-100% - 18px))}
+  .app-main{width:100%;min-width:0}
+  .sidebar-top,.nav-progress-head,.nav-topline{display:flex;align-items:center;gap:10px}
+  .sidebar-top{justify-content:space-between;border-bottom:1.2px solid var(--ink);padding-bottom:8px;margin-bottom:10px}
+  .sidebar-close{padding:5px 9px;line-height:1}
+  .nav-progress{border:1px solid var(--grid);background:var(--panel);padding:10px;margin-bottom:10px}
+  .nav-progress-head{justify-content:space-between;font-size:11px;margin-bottom:7px}
+  .nav-progress-head strong{color:var(--rust)}
+  .nav-progress-track{height:9px;background:var(--mut);border:1px solid var(--grid)}
+  .nav-progress-fill{height:100%;width:var(--progress);background:var(--rust)}
+  .nav-section{border-bottom:1.2px solid var(--ink);padding:6px 0;margin:10px 0 8px}
+  .nav-item{display:flex;align-items:center;gap:8px;text-align:left;width:100%;padding:9px 10px;margin-bottom:6px;
+            background:var(--white);border:1.2px solid var(--grid);color:var(--ink)}
+  .nav-item:hover{background:var(--white);border-color:var(--ink);color:var(--ink)}
+  .nav-item.active{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .nav-item .ic{color:var(--rust)}
+  .nav-item.active .ic{color:var(--peach)}
+  .nav-item .nav-count{margin-left:auto}
+  .nav-item.active .nav-count{color:var(--peach)}
+  .nav-group{border:1px solid var(--grid);background:var(--white);margin-bottom:6px}
+  .nav-group.open{border-color:var(--ink)}
+  .nav-group-toggle{display:flex;align-items:flex-start;gap:8px;text-align:left;width:100%;padding:16px 12px;
+                    background:transparent;border:0;color:var(--ink)}
+  .nav-group-toggle:hover{background:var(--panel);color:var(--ink)}
+  .nav-arrow{color:var(--rust);font-size:10px;line-height:1.6}
+  .nav-copy{min-width:0;flex:1}
+  .nav-name{display:block;color:var(--ink);font-size:12.5px;font-weight:700;line-height:1.4}
+  .nav-sub{display:block;color:var(--ink-soft);font-size:10.5px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav-count{color:var(--steel);font-size:11px;font-weight:700;white-space:nowrap}
+  .nav-count.hot{color:var(--rust)}
+  .nav-children{display:none;border-top:1px solid var(--grid);padding:8px}
+  .nav-group.open .nav-children{display:block}
+  .nav-child{display:grid;grid-template-columns:12px auto minmax(0,1fr);align-items:baseline;gap:6px;text-align:left;
+             width:100%;padding:16px 12px;background:transparent;border:0;color:var(--ink-soft);line-height:1.6}
+  .nav-child:hover{background:var(--mut);color:var(--ink)}
+  .nav-child.active{background:var(--rust-soft);color:var(--ink)}
+  .nav-mark{color:var(--steel)}
+  .nav-child.active .nav-mark{color:var(--rust)}
+  .nav-order{color:var(--ink);font-weight:700;white-space:nowrap}
+  .nav-child.active .nav-order{color:var(--rust)}
+  .nav-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav-topline{margin-bottom:12px}
+  .nav-scrim{display:none}
+  body.nav-lock{overflow:hidden}
+  @media(max-width:900px){
+    .app-shell{display:block}
+    .sidebar-slot{width:0}
+    .sidebar{position:fixed;z-index:70;top:0;bottom:0;left:0;width:min(320px,calc(100vw - 40px));max-height:none;
+             transform:translateX(-100%)}
+    .app-shell.nav-collapsed .sidebar{transform:translateX(-100%)}
+    .app-shell.nav-open .sidebar{transform:translateX(0)}
+    .nav-scrim{display:block;position:fixed;z-index:65;inset:0;background:rgba(27,42,65,.45)}
+  }
 </style>
 </head>
 <body>
 <div class="sheet">
-<main class="content">
+<div class="app-shell" id="appShell">
+<div class="sidebar-slot">
+  <aside class="sidebar" id="sidebar" aria-label="Điều hướng skill">
+    <div class="sidebar-top">
+      <span class="k">ĐIỀU HƯỚNG</span>
+      <button class="ghost sidebar-close" id="navClose" type="button" aria-label="Đóng điều hướng">×</button>
+    </div>
+    <div class="nav-progress">
+      <div class="nav-progress-head"><span>ĐÃ VIỆT HÓA</span><strong id="navProgressCount">—</strong></div>
+      <div class="nav-progress-track"><div class="nav-progress-fill" style="--progress:100%"></div></div>
+    </div>
+    <button class="nav-item active" type="button" data-view="skills"><span class="ic">◇</span>Danh mục skill<span class="nav-count" id="skillNavCount"></span></button>
+    <button class="nav-item" type="button" data-view="product"><span class="ic">⇄</span>Product Flow<span class="nav-count" id="flowNavCount"></span></button>
+    <button class="nav-item" type="button" data-view="glossary"><span class="ic">▤</span>Thuật ngữ<span class="nav-count" id="glossaryTabCount"></span></button>
+    <div class="nav-section"><span class="k" id="navSectionLabel">NHÓM SKILL</span></div>
+    <div id="navGroups"></div>
+  </aside>
+</div>
+<div class="nav-scrim" id="navScrim" hidden></div>
+<main class="content app-main">
+  <div class="nav-topline">
+    <button class="ghost" id="navToggle" type="button" aria-controls="sidebar" aria-expanded="true">☰ MENU SKILL</button>
+  </div>
   <h1>Matt Pocock Skills · Vietsub toàn bộ</h1>
   <div class="sub">Chọn một skill trong bảng để xem mục tiêu, workflow, đầu ra và ràng buộc bằng tiếng Việt.</div>
   <div class="meta">
@@ -277,17 +358,12 @@
     <span><b>LANG</b> tiếng Việt</span>
     <span><b>MODE</b> self-contained</span>
   </div>
-  <div class="tabs view-tabs" id="viewTabs">
-    <button type="button" class="tab active" data-view="skills"><span class="n">1·</span>Skills</button>
-    <button type="button" class="tab" data-view="product"><span class="n">37·</span>Product Flow</button>
-    <button type="button" class="tab" data-view="glossary"><span class="n" id="glossaryTabCount">—·</span>Thuật ngữ</button>
-  </div>
   <div id="skillsView">
   <div class="tiles">
     <div class="tile hot"><span class="k">TỔNG SKILL</span><span class="v">37</span> <span class="u">đã Việt hóa</span></div>
     <div class="tile"><span class="k">ENGINEERING</span><span class="v">18</span> <span class="u">ổn định</span></div>
     <div class="tile"><span class="k">PRODUCTIVITY</span><span class="v">7</span> <span class="u">ổn định</span></div>
-    <div class="tile"><span class="k">BETA + MISC</span><span class="v">10</span> <span class="u">thử nghiệm / ít dùng</span></div>
+    <div class="tile"><span class="k">BETA + MISC</span><span class="v">12</span> <span class="u">thử nghiệm / ít dùng</span></div>
   </div>
   <section>
     <h2>Danh mục skill</h2>
@@ -301,7 +377,7 @@
       <button type="button" class="tab active" data-group="All"><span class="n">37·</span>Tất cả</button>
       <button type="button" class="tab" data-group="Engineering"><span class="n">18·</span>Engineering</button>
       <button type="button" class="tab" data-group="Productivity"><span class="n">7·</span>Productivity</button>
-      <button type="button" class="tab" data-group="In progress"><span class="n">6·</span>Beta</button>
+      <button type="button" class="tab" data-group="In progress"><span class="n">8·</span>Beta</button>
       <button type="button" class="tab" data-group="Misc"><span class="n">4·</span>Misc</button>
   </div>
     <div class="search-box skill-search">
@@ -415,6 +491,7 @@
     Nguồn: 37 file SKILL.md trong mattpocock_skills. Nội dung kỹ thuật, command và path được giữ nguyên; phần giải thích được Việt hóa theo hành vi.
   </div>
 </main>
+</div>
 </div>
 <div class="term-tip" id="termTip" role="tooltip" hidden></div>
 <script type="text/plain" id="source"># Matt Pocock Skills — Bản Việt hóa và giải thích đầy đủ
@@ -1279,7 +1356,7 @@ for(const item of glossary.slice().sort((a,b)=>a.term.localeCompare(b.term,"en")
   row.innerHTML=`<td data-label="Thuật ngữ"><span class="glossary-term">${escapeHtml(item.term)}</span>${aliases.length?`<span class="glossary-aliases">Cũng gặp: ${escapeHtml(aliases.join(", "))}</span>`:""}</td><td data-label="Giải thích">${escapeHtml(item.definition)}</td><td data-label="Xuất hiện trong"><code>${escapeHtml(item.skills)}</code></td>`;
   glossaryRows.appendChild(row)
 }
-document.getElementById("glossaryTabCount").textContent=`${glossary.length}·`;
+document.getElementById("glossaryTabCount").textContent=String(glossary.length);
 function applyGlossaryFilter(){
   const query=normalize(glossarySearch.value.trim());
   let count=0;
@@ -1378,10 +1455,8 @@ function renderProductMap(){
 function showView(view,termId=""){
   const views={skills:"skillsView",product:"productFlowView",glossary:"glossaryView"};
   for(const [key,id] of Object.entries(views))document.getElementById(id).hidden=key!==view;
-  for(const tab of document.querySelectorAll("#viewTabs .tab"))tab.classList.toggle("active",tab.dataset.view===view);
   if(view==="glossary"&&termId)focusGlossary(termId)
 }
-for(const tab of document.querySelectorAll("#viewTabs .tab"))tab.addEventListener("click",()=>showView(tab.dataset.view));
 glossarySearch.addEventListener("input",applyGlossaryFilter);
 applyGlossaryFilter();
 renderProductMap();
@@ -1573,6 +1648,109 @@ document.addEventListener("keydown",event=>{if(event.key==="Escape")hideTip()});
 document.addEventListener("click",()=>hideTip(),true);
 window.addEventListener("scroll",()=>{if(tipTarget)hideTip()},true);
 window.addEventListener("resize",()=>{if(tipTarget)hideTip()});
+(()=>{
+  const shell=document.getElementById("appShell");
+  const sidebar=document.getElementById("sidebar");
+  const toggle=document.getElementById("navToggle");
+  const closeBtn=document.getElementById("navClose");
+  const scrim=document.getElementById("navScrim");
+  const groupsHost=document.getElementById("navGroups");
+  if(!shell||!sidebar||!toggle||!closeBtn||!scrim||!groupsHost)return;
+  const mobile=window.matchMedia("(max-width: 900px)");
+  const isOpen=()=>mobile.matches?shell.classList.contains("nav-open"):!shell.classList.contains("nav-collapsed");
+  const setOpen=open=>{
+    shell.classList.toggle("nav-open",open&&mobile.matches);
+    shell.classList.toggle("nav-collapsed",!open&&!mobile.matches);
+    toggle.setAttribute("aria-expanded",String(open));
+    sidebar.setAttribute("aria-hidden",String(!open));
+    sidebar.inert=!open;
+    scrim.hidden=!open||!mobile.matches;
+    document.body.classList.toggle("nav-lock",open&&mobile.matches)
+  };
+  const total=overview.length;
+  document.getElementById("navProgressCount").textContent=`${total}/${total}`;
+  document.getElementById("navSectionLabel").textContent=`NHÓM SKILL · ${total} MỤC`;
+  document.getElementById("skillNavCount").textContent=String(total);
+  document.getElementById("flowNavCount").textContent=String(total);
+  const specs=[
+    {group:"Engineering",label:"Engineering",sub:"Công việc code hằng ngày"},
+    {group:"Productivity",label:"Productivity",sub:"Quy trình ngoài code"},
+    {group:"In progress",label:"Beta",sub:"Thử nghiệm, chưa ổn định"},
+    {group:"Misc",label:"Misc",sub:"Giữ lại nhưng ít dùng"}
+  ];
+  const childByName=new Map();
+  const openArrow=(group,open)=>{
+    const button=group.querySelector(".nav-group-toggle");
+    group.classList.toggle("open",open);
+    button.setAttribute("aria-expanded",String(open));
+    button.querySelector(".nav-arrow").textContent=open?"▾":"▸"
+  };
+  for(const spec of specs){
+    const items=overview.filter(skill=>skill.group===spec.group);
+    if(!items.length)continue;
+    const group=document.createElement("div");
+    group.className="nav-group";
+    const listId="navGroup-"+spec.group.replace(/\s+/g,"-");
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="nav-group-toggle";
+    button.setAttribute("aria-expanded","false");
+    button.setAttribute("aria-controls",listId);
+    button.innerHTML='<span class="nav-arrow">▸</span><span class="nav-copy"><span class="nav-name"></span><span class="nav-sub"></span></span><span class="nav-count"></span>';
+    button.querySelector(".nav-name").textContent=spec.label;
+    button.querySelector(".nav-sub").textContent=spec.sub;
+    button.querySelector(".nav-count").textContent=String(items.length);
+    const children=document.createElement("div");
+    children.className="nav-children";
+    children.id=listId;
+    for(const skill of items){
+      const child=document.createElement("button");
+      child.type="button";
+      child.className="nav-child";
+      child.dataset.name=skill.name;
+      child.title=`${skill.name} — ${skill.vi}`;
+      child.innerHTML='<span class="nav-mark">·</span><span class="nav-order"></span><span class="nav-title"></span>';
+      child.querySelector(".nav-order").textContent=skill.name;
+      child.querySelector(".nav-title").textContent=skill.vi;
+      child.addEventListener("click",()=>{
+        openSkillFromMap(skill.name);
+        if(mobile.matches)setOpen(false)
+      });
+      childByName.set(skill.name,child);
+      children.appendChild(child)
+    }
+    button.addEventListener("click",()=>openArrow(group,!group.classList.contains("open")));
+    group.append(button,children);
+    groupsHost.appendChild(group)
+  }
+  const syncNavChild=(name,on)=>{
+    const child=childByName.get(name);
+    if(!child)return;
+    child.classList.toggle("active",on);
+    if(on)openArrow(child.closest(".nav-group"),true)
+  };
+  const baseMarkRow=markRow;
+  markRow=(name,open)=>{baseMarkRow(name,open);syncNavChild(name,open)};
+  const navItems=[...sidebar.querySelectorAll(".nav-item[data-view]")];
+  const syncNavItems=view=>{for(const item of navItems)item.classList.toggle("active",item.dataset.view===view)};
+  const baseShowView=showView;
+  showView=(view,termId="")=>{baseShowView(view,termId);syncNavItems(view)};
+  for(const item of navItems)item.addEventListener("click",()=>{
+    showView(item.dataset.view);
+    if(mobile.matches)setOpen(false)
+  });
+  for(const name of expanded)syncNavChild(name,true);
+  if(!groupsHost.querySelector(".nav-group.open")){
+    const first=groupsHost.querySelector(".nav-group");
+    if(first)openArrow(first,true)
+  }
+  toggle.addEventListener("click",()=>setOpen(!isOpen()));
+  closeBtn.addEventListener("click",()=>setOpen(false));
+  scrim.addEventListener("click",()=>setOpen(false));
+  document.addEventListener("keydown",event=>{if(event.key==="Escape"&&mobile.matches&&isOpen())setOpen(false)});
+  mobile.addEventListener("change",()=>setOpen(!mobile.matches));
+  setOpen(!mobile.matches)
+})();
 </script>
 </body>
 </html>
