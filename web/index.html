@@ -381,7 +381,7 @@
       <button type="button" class="tab" data-group="Misc"><span class="n">4·</span>Misc</button>
   </div>
     <div class="search-box skill-search">
-      <label class="k" for="search">TÌM THEO TÊN, MÔ TẢ HOẶC NỘI DUNG</label>
+      <label class="k" for="search">TÌM THEO TÊN, MÔ TẢ HOẶC NỘI DUNG · NHIỀU TỪ = LỌC AND, SẮP THEO ĐỘ KHỚP</label>
       <input id="search" type="search" autocomplete="off" placeholder="Ví dụ: bug, TDD, handoff, domain, viết bài...">
     </div>
     <div class="table-wrap">
@@ -1358,10 +1358,10 @@ for(const item of glossary.slice().sort((a,b)=>a.term.localeCompare(b.term,"en")
 }
 document.getElementById("glossaryTabCount").textContent=String(glossary.length);
 function applyGlossaryFilter(){
-  const query=normalize(glossarySearch.value.trim());
+  const tokens=normalize(glossarySearch.value.trim()).split(/\s+/).filter(Boolean);
   let count=0;
   for(const row of glossaryRows.children){
-    row.hidden=Boolean(query&&!row.dataset.search.includes(query));
+    row.hidden=tokens.some(token=>!row.dataset.search.includes(token));
     if(!row.hidden)count+=1
   }
   glossaryCount.textContent=`${count} thuật ngữ đang hiển thị`;
@@ -1484,7 +1484,10 @@ function saveStore(){
 for(const skill of overview){
   const detail=details[skill.name];
   skill.body=detail?detail.body.join("\n").trim():"";
-  skill.search=normalize([skill.name,skill.vi,skill.desc,skill.body].join(" "));
+  skill.fname=normalize(skill.name);
+  skill.fvi=normalize(skill.vi);
+  skill.fdesc=normalize(skill.desc);
+  skill.fbody=normalize(skill.body);
   const row=document.createElement("tr");
   row.dataset.name=skill.name;
   row.dataset.group=skill.group;
@@ -1493,12 +1496,49 @@ for(const skill of overview){
   rows.appendChild(row);
   linkGlossaryTerms(row)
 }
+const escapeRegExp=value=>value.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+const hasWord=(haystack,token)=>new RegExp(`(?<![a-z0-9])${escapeRegExp(token)}(?![a-z0-9])`).test(haystack);
+function scoreToken(skill,token){
+  if(skill.fname===token)return 1000;
+  if(skill.fname.startsWith(token))return 600;
+  if(hasWord(skill.fname,token))return 400;
+  if(skill.fname.includes(token))return 300;
+  if(hasWord(skill.fvi,token))return 160;
+  if(skill.fvi.includes(token))return 120;
+  if(hasWord(skill.fdesc,token))return 90;
+  if(skill.fdesc.includes(token))return 60;
+  if(hasWord(skill.fbody,token))return 12;
+  if(skill.fbody.includes(token))return 6;
+  return 0
+}
 function visibleSkills(){
-  const query=normalize(search.value.trim());
-  return overview.filter(skill=>(activeGroup==="All"||skill.group===activeGroup)&&(!query||skill.search.includes(query)))
+  const pool=overview.filter(skill=>activeGroup==="All"||skill.group===activeGroup);
+  const tokens=normalize(search.value.trim()).split(/\s+/).filter(Boolean);
+  if(!tokens.length)return pool;
+  const scored=[];
+  for(const skill of pool){
+    let total=0;
+    let matched=true;
+    for(const token of tokens){
+      const value=scoreToken(skill,token);
+      if(!value){matched=false;break}
+      total+=value
+    }
+    if(matched)scored.push({skill,total})
+  }
+  scored.sort((a,b)=>b.total-a.total||overview.indexOf(a.skill)-overview.indexOf(b.skill));
+  return scored.map(item=>item.skill)
 }
 function applyFilters(){
-  const visible=new Set(visibleSkills().map(skill=>skill.name));
+  const ranked=visibleSkills();
+  const visible=new Set(ranked.map(skill=>skill.name));
+  for(const skill of ranked){
+    const row=rows.querySelector(`tr[data-name="${skill.name}"]`);
+    if(!row)continue;
+    rows.appendChild(row);
+    const detail=detailRows.get(skill.name);
+    if(detail)rows.appendChild(detail)
+  }
   for(const row of rows.querySelectorAll("tr[data-name]")){
     const name=row.dataset.name;
     const show=visible.has(name);
