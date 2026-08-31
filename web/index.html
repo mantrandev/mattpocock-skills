@@ -29,10 +29,6 @@
   
   h1{font-size:clamp(17px,3.4vw,24px);letter-spacing:.5px}
   .sub{font-size:12px;color:var(--rust);font-weight:700;margin:4px 0 14px}
-  .meta{display:flex;flex-wrap:wrap;gap:5px 18px;font-size:10.5px;color:var(--ink-soft);
-        border-top:1px solid var(--grid);border-bottom:1px solid var(--grid);padding:9px 0;margin-bottom:16px}
-  .meta b{color:var(--ink);font-weight:700;letter-spacing:1px}
-  .meta .ok{color:var(--good)} .meta .hot{color:var(--rust)}
   
   section{margin-top:22px}
   h2{font-size:14px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px;
@@ -245,7 +241,7 @@
     .table-wrap{overflow:visible;border-top:0}
   }
   @media(max-width:660px){
-    .meta span,.sub,.foot{min-width:0;overflow-wrap:anywhere}
+    .sub,.foot{min-width:0;overflow-wrap:anywhere}
     .result-count{white-space:normal}
     .tile{min-width:0;flex-basis:140px}
     .tab{white-space:normal}
@@ -272,14 +268,9 @@
   .app-shell.nav-collapsed .sidebar-slot{width:0}
   .app-shell.nav-collapsed .sidebar{transform:translateX(calc(-100% - 18px))}
   .app-main{width:100%;min-width:0}
-  .sidebar-top,.nav-progress-head,.nav-topline{display:flex;align-items:center;gap:10px}
+  .sidebar-top,.nav-topline{display:flex;align-items:center;gap:10px}
   .sidebar-top{justify-content:space-between;border-bottom:1.2px solid var(--ink);padding-bottom:8px;margin-bottom:10px}
   .sidebar-close{padding:5px 9px;line-height:1}
-  .nav-progress{border:1px solid var(--grid);background:var(--panel);padding:10px;margin-bottom:10px}
-  .nav-progress-head{justify-content:space-between;font-size:11px;margin-bottom:7px}
-  .nav-progress-head strong{color:var(--rust)}
-  .nav-progress-track{height:9px;background:var(--mut);border:1px solid var(--grid)}
-  .nav-progress-fill{height:100%;width:var(--progress);background:var(--rust)}
   .nav-section{border-bottom:1.2px solid var(--ink);padding:6px 0;margin:10px 0 8px}
   .nav-item{display:flex;align-items:center;gap:8px;text-align:left;width:100%;padding:9px 10px;margin-bottom:6px;
             background:var(--white);border:1.2px solid var(--grid);color:var(--ink)}
@@ -337,12 +328,8 @@
       <span class="k">ĐIỀU HƯỚNG</span>
       <button class="ghost sidebar-close" id="navClose" type="button" aria-label="Đóng điều hướng">×</button>
     </div>
-    <div class="nav-progress">
-      <div class="nav-progress-head"><span>ĐÃ VIỆT HÓA</span><strong id="navProgressCount">—</strong></div>
-      <div class="nav-progress-track"><div class="nav-progress-fill" style="--progress:100%"></div></div>
-    </div>
     <button class="nav-item active" type="button" data-view="skills"><span class="ic">◇</span>Danh mục skill<span class="nav-count" id="skillNavCount"></span></button>
-    <button class="nav-item" type="button" data-view="product"><span class="ic">⇄</span>Product Flow<span class="nav-count" id="flowNavCount"></span></button>
+    <button class="nav-item" type="button" data-view="product"><span class="ic">⇄</span>Product Flow</button>
     <button class="nav-item" type="button" data-view="glossary"><span class="ic">▤</span>Thuật ngữ<span class="nav-count" id="glossaryTabCount"></span></button>
     <div class="nav-section"><span class="k" id="navSectionLabel">NHÓM SKILL</span></div>
     <div id="navGroups"></div>
@@ -355,15 +342,9 @@
   </div>
   <h1>Matt Pocock Skills · Vietsub toàn bộ</h1>
   <div class="sub">Chọn một skill trong bảng để xem mục tiêu, workflow, đầu ra và ràng buộc bằng tiếng Việt.</div>
-  <div class="meta">
-    <span><b>STATUS</b> <span class="ok">37/37 đã đối chiếu</span></span>
-    <span><b>SOURCE</b> skills/SKILL.md</span>
-    <span><b>LANG</b> tiếng Việt</span>
-    <span><b>MODE</b> self-contained</span>
-  </div>
   <div id="skillsView">
   <div class="tiles">
-    <div class="tile hot"><span class="k">TỔNG SKILL</span><span class="v">37</span> <span class="u">đã Việt hóa</span></div>
+    <div class="tile hot"><span class="k">TỔNG SKILL</span><span class="v">37</span> <span class="u">chia trong 7 nhóm</span></div>
     <div class="tile"><span class="k">LUỒNG CHÍNH</span><span class="v">5</span> <span class="u">xương sống ý tưởng đến ship</span></div>
     <div class="tile"><span class="k">BỘ CHÍNH THỨC</span><span class="v">25</span> <span class="u">Matt ship trong plugin</span></div>
     <div class="tile"><span class="k">BETA + ÍT DÙNG</span><span class="v">12</span> <span class="u">chưa ổn định</span></div>
@@ -1732,10 +1713,7 @@ window.addEventListener("resize",()=>{if(tipTarget)hideTip()});
     document.body.classList.toggle("nav-lock",open&&mobile.matches)
   };
   const total=overview.length;
-  document.getElementById("navProgressCount").textContent=`${total}/${total}`;
-  document.getElementById("navSectionLabel").textContent=`NHÓM SKILL · ${total} MỤC`;
   document.getElementById("skillNavCount").textContent=String(total);
-  document.getElementById("flowNavCount").textContent=String(total);
   const specs=[
     {group:"Bắt đầu",label:"01 · Bắt đầu",sub:"Cài một lần rồi biết đường đi",start:"setup-matt-pocock-skills"},
     {group:"Luồng chính",label:"02 · Luồng chính",sub:"Xương sống ý tưởng đến ship, theo thứ tự",start:"grill-with-docs"},
@@ -1745,6 +1723,7 @@ window.addEventListener("resize",()=>{if(tipTarget)hideTip()});
     {group:"Tham chiếu",label:"06 · Tham chiếu",sub:"Lớp tái dùng mà skill khác gọi tới",start:"codebase-design"},
     {group:"Beta · Ít dùng",label:"07 · Beta · Ít dùng",sub:"Thử nghiệm và skill giữ lại nhưng ít dùng",start:""}
   ];
+  document.getElementById("navSectionLabel").textContent=`NHÓM SKILL · ${specs.length} NHÓM`;
   const childByName=new Map();
   const openArrow=(group,open)=>{
     const button=group.querySelector(".nav-group-toggle");
