@@ -308,10 +308,13 @@
   .nav-child.active{background:var(--rust-soft);color:var(--ink)}
   .nav-mark{color:var(--steel)}
   .nav-child.active .nav-mark{color:var(--rust)}
+  .nav-child.start .nav-mark{color:var(--rust)}
   .nav-order{color:var(--ink);font-weight:700;white-space:nowrap}
   .nav-child.active .nav-order{color:var(--rust)}
   .nav-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .nav-topline{margin-bottom:12px}
+  .start-hint{margin:0 0 14px}
+  .start-hint b{color:var(--rust)}
   .nav-scrim{display:none}
   body.nav-lock{overflow:hidden}
   @media(max-width:900px){
@@ -361,9 +364,9 @@
   <div id="skillsView">
   <div class="tiles">
     <div class="tile hot"><span class="k">TỔNG SKILL</span><span class="v">37</span> <span class="u">đã Việt hóa</span></div>
-    <div class="tile"><span class="k">ENGINEERING</span><span class="v">18</span> <span class="u">ổn định</span></div>
-    <div class="tile"><span class="k">PRODUCTIVITY</span><span class="v">7</span> <span class="u">ổn định</span></div>
-    <div class="tile"><span class="k">BETA + MISC</span><span class="v">12</span> <span class="u">thử nghiệm / ít dùng</span></div>
+    <div class="tile"><span class="k">LUỒNG CHÍNH</span><span class="v">5</span> <span class="u">xương sống ý tưởng đến ship</span></div>
+    <div class="tile"><span class="k">BỘ CHÍNH THỨC</span><span class="v">25</span> <span class="u">Matt ship trong plugin</span></div>
+    <div class="tile"><span class="k">BETA + ÍT DÙNG</span><span class="v">12</span> <span class="u">chưa ổn định</span></div>
   </div>
   <section>
     <h2>Danh mục skill</h2>
@@ -375,11 +378,15 @@
     </div>
   <div class="tabs" id="tabs">
       <button type="button" class="tab active" data-group="All"><span class="n">37·</span>Tất cả</button>
-      <button type="button" class="tab" data-group="Engineering"><span class="n">18·</span>Engineering</button>
-      <button type="button" class="tab" data-group="Productivity"><span class="n">7·</span>Productivity</button>
-      <button type="button" class="tab" data-group="In progress"><span class="n">8·</span>Beta</button>
-      <button type="button" class="tab" data-group="Misc"><span class="n">4·</span>Misc</button>
+      <button type="button" class="tab" data-group="Bắt đầu"><span class="n">2·</span>Bắt đầu</button>
+      <button type="button" class="tab" data-group="Luồng chính"><span class="n">5·</span>Luồng chính</button>
+      <button type="button" class="tab" data-group="Định hình"><span class="n">3·</span>Định hình</button>
+      <button type="button" class="tab" data-group="Bảo trì"><span class="n">5·</span>Bảo trì</button>
+      <button type="button" class="tab" data-group="Năng suất"><span class="n">6·</span>Năng suất</button>
+      <button type="button" class="tab" data-group="Tham chiếu"><span class="n">4·</span>Tham chiếu</button>
+      <button type="button" class="tab" data-group="Beta · Ít dùng"><span class="n">12·</span>Beta · Ít dùng</button>
   </div>
+    <div class="flag start-hint" id="startHint" hidden></div>
     <div class="search-box skill-search">
       <label class="k" for="search">TÌM THEO TÊN, MÔ TẢ HOẶC NỘI DUNG · NHIỀU TỪ = LỌC AND, SẮP THEO ĐỘ KHỚP</label>
       <input id="search" type="search" autocomplete="off" placeholder="Ví dụ: bug, TDD, handoff, domain, viết bài...">
@@ -510,43 +517,43 @@ Tài liệu này Việt hóa toàn bộ 37 `SKILL.md` trong repository `mattpoco
 
 | Nhóm | Skill | Tên Việt hóa | Cách gọi | Việc chính |
 |---|---|---|---|---|
-| Engineering | `ask-matt` | Hỏi Matt | Gọi tay | Chọn đúng skill và luồng làm việc |
-| Engineering | `grill-with-docs` | Hỏi xoáy kèm tài liệu | Gọi tay | Làm rõ ý tưởng đồng thời cập nhật domain docs |
-| Engineering | `triage` | Phân loại issue | Gọi tay | Đưa issue/PR qua state machine triage |
-| Engineering | `improve-codebase-architecture` | Cải thiện kiến trúc codebase | Gọi tay | Tìm cơ hội biến module nông thành module sâu |
-| Engineering | `setup-matt-pocock-skills` | Thiết lập bộ skill Matt Pocock | Gọi tay | Cấu hình issue tracker, nhãn và domain docs |
-| Engineering | `to-spec` | Chuyển thành đặc tả | Gọi tay | Tổng hợp hội thoại thành spec |
-| Engineering | `to-tickets` | Chuyển thành ticket | Gọi tay | Chia spec thành các lát cắt dọc có quan hệ chặn |
-| Engineering | `implement` | Triển khai | Gọi tay | Thi công spec/ticket bằng TDD và code review |
-| Engineering | `wayfinder` | Dẫn đường | Gọi tay | Lập bản đồ quyết định cho công việc quá lớn |
-| Engineering | `prototype` | Làm nguyên mẫu | Tự gọi | Tạo code dùng một lần để trả lời câu hỏi thiết kế |
-| Engineering | `diagnosing-bugs` | Chẩn đoán lỗi | Tự gọi | Tạo vòng phản hồi rồi tìm và khóa nguyên nhân lỗi |
-| Engineering | `research` | Nghiên cứu | Tự gọi | Tra cứu nguồn sơ cấp và lưu báo cáo có trích dẫn |
-| Engineering | `tdd` | Phát triển hướng kiểm thử | Tự gọi | Làm theo vòng đỏ → xanh, từng lát cắt dọc |
-| Engineering | `domain-modeling` | Mô hình hóa nghiệp vụ | Tự gọi | Chuẩn hóa ngôn ngữ domain và ghi ADR cần thiết |
-| Engineering | `codebase-design` | Thiết kế codebase | Tự gọi | Thiết kế module sâu, seam sạch và interface nhỏ |
-| Engineering | `code-review` | Đánh giá mã nguồn | Tự gọi | Review riêng theo Standards và Spec |
-| Engineering | `resolving-merge-conflicts` | Giải quyết xung đột merge | Tự gọi | Hợp nhất ý định của hai phía rồi hoàn tất Git operation |
-| Engineering | `wizard` | Trình hướng dẫn tương tác | Tự gọi | Sinh Bash wizard cho các bước con người phải làm |
-| Productivity | `grill-me` | Hỏi xoáy tôi | Gọi tay | Chạy phiên phỏng vấn sâu không lưu trạng thái |
-| Productivity | `grilling` | Phỏng vấn truy vấn sâu | Tự gọi | Cơ chế hỏi theo cây quyết định và từng vòng frontier |
-| Productivity | `handoff` | Bàn giao | Gọi tay | Nén ngữ cảnh thành tài liệu cho agent khác |
-| Productivity | `teach` | Giảng dạy | Gọi tay | Dạy qua nhiều phiên bằng workspace có trạng thái |
-| Productivity | `to-questionnaire` | Chuyển thành bảng câu hỏi | Gọi tay | Khai thác tri thức từ đúng người bằng questionnaire |
-| Productivity | `wait-what` | Khoan, ý là gì? | Gọi tay | Yêu cầu agent diễn giải lại thông điệp khó hiểu |
-| Productivity | `writing-for-agents` | Viết tài liệu cho agent | Tự gọi | Thiết kế skill và agent instructions ít biến thiên |
-| In progress | `claude-handoff` | Bàn giao cho Claude nền | Beta · Gọi tay | Mở background Claude agent bằng bản tóm tắt |
-| In progress | `implement-spec` | Triển khai spec | Beta · Gọi tay | Biến spec và ticket thành một PR duy nhất |
-| In progress | `loop-me` | Đặc tả các vòng lặp của tôi | Beta · Gọi tay | Biến vòng lặp đời sống thành workflow spec |
-| In progress | `retro` | Nhìn lại phiên code | Beta · Gọi tay | Đề xuất cải thiện môi trường agent sau mỗi phiên |
-| In progress | `setup-ts-deep-modules` | Thiết lập deep module TypeScript | Beta · Gọi tay | Ép import qua entry point bằng dependency-cruiser |
-| In progress | `writing-beats` | Viết theo nhịp nội dung | Beta · Gọi tay | Xây bài từng beat theo đường đi do người dùng chọn |
-| In progress | `writing-fragments` | Khai thác mảnh viết | Beta · Gọi tay | Thu thập nguyên liệu viết mà chưa áp cấu trúc |
-| In progress | `writing-shape` | Tạo hình bài viết | Beta · Gọi tay | Biến đống nguyên liệu thành bài theo từng block |
-| Misc | `git-guardrails-claude-code` | Hàng rào Git cho Claude Code | Ít dùng · Tự gọi | Chặn lệnh Git nguy hiểm trước khi chạy |
-| Misc | `migrate-to-shoehorn` | Chuyển test sang Shoehorn | Ít dùng · Tự gọi | Thay TypeScript assertion bằng dữ liệu test một phần |
-| Misc | `scaffold-exercises` | Dựng khung bài tập | Ít dùng · Tự gọi | Tạo cấu trúc course exercise đúng lint |
-| Misc | `setup-pre-commit` | Thiết lập pre-commit | Ít dùng · Tự gọi | Cài Husky, lint-staged, Prettier, typecheck và test |
+| Bắt đầu | `setup-matt-pocock-skills` | Thiết lập bộ skill Matt Pocock | Gọi tay | Cấu hình issue tracker, nhãn và domain docs |
+| Bắt đầu | `ask-matt` | Hỏi Matt | Gọi tay | Chọn đúng skill và luồng làm việc |
+| Luồng chính | `grill-with-docs` | Hỏi xoáy kèm tài liệu | Gọi tay | Làm rõ ý tưởng đồng thời cập nhật domain docs |
+| Luồng chính | `to-spec` | Chuyển thành đặc tả | Gọi tay | Tổng hợp hội thoại thành spec |
+| Luồng chính | `to-tickets` | Chuyển thành ticket | Gọi tay | Chia spec thành các lát cắt dọc có quan hệ chặn |
+| Luồng chính | `implement` | Triển khai | Gọi tay | Thi công spec/ticket bằng TDD và code review |
+| Luồng chính | `code-review` | Đánh giá mã nguồn | Tự gọi | Review riêng theo Standards và Spec |
+| Định hình | `wayfinder` | Dẫn đường | Gọi tay | Lập bản đồ quyết định cho công việc quá lớn |
+| Định hình | `prototype` | Làm nguyên mẫu | Tự gọi | Tạo code dùng một lần để trả lời câu hỏi thiết kế |
+| Định hình | `research` | Nghiên cứu | Tự gọi | Tra cứu nguồn sơ cấp và lưu báo cáo có trích dẫn |
+| Bảo trì | `improve-codebase-architecture` | Cải thiện kiến trúc codebase | Gọi tay | Tìm cơ hội biến module nông thành module sâu |
+| Bảo trì | `diagnosing-bugs` | Chẩn đoán lỗi | Tự gọi | Tạo vòng phản hồi rồi tìm và khóa nguyên nhân lỗi |
+| Bảo trì | `resolving-merge-conflicts` | Giải quyết xung đột merge | Tự gọi | Hợp nhất ý định của hai phía rồi hoàn tất Git operation |
+| Bảo trì | `triage` | Phân loại issue | Gọi tay | Đưa issue/PR qua state machine triage |
+| Bảo trì | `wizard` | Trình hướng dẫn tương tác | Tự gọi | Sinh Bash wizard cho các bước con người phải làm |
+| Năng suất | `grill-me` | Hỏi xoáy tôi | Gọi tay | Chạy phiên phỏng vấn sâu không lưu trạng thái |
+| Năng suất | `handoff` | Bàn giao | Gọi tay | Nén ngữ cảnh thành tài liệu cho agent khác |
+| Năng suất | `to-questionnaire` | Chuyển thành bảng câu hỏi | Gọi tay | Khai thác tri thức từ đúng người bằng questionnaire |
+| Năng suất | `teach` | Giảng dạy | Gọi tay | Dạy qua nhiều phiên bằng workspace có trạng thái |
+| Năng suất | `wait-what` | Khoan, ý là gì? | Gọi tay | Yêu cầu agent diễn giải lại thông điệp khó hiểu |
+| Năng suất | `writing-for-agents` | Viết tài liệu cho agent | Tự gọi | Thiết kế skill và agent instructions ít biến thiên |
+| Tham chiếu | `codebase-design` | Thiết kế codebase | Tự gọi | Thiết kế module sâu, seam sạch và interface nhỏ |
+| Tham chiếu | `domain-modeling` | Mô hình hóa nghiệp vụ | Tự gọi | Chuẩn hóa ngôn ngữ domain và ghi ADR cần thiết |
+| Tham chiếu | `grilling` | Phỏng vấn truy vấn sâu | Tự gọi | Cơ chế hỏi theo cây quyết định và từng vòng frontier |
+| Tham chiếu | `tdd` | Phát triển hướng kiểm thử | Tự gọi | Làm theo vòng đỏ → xanh, từng lát cắt dọc |
+| Beta · Ít dùng | `claude-handoff` | Bàn giao cho Claude nền | Beta · Gọi tay | Mở background Claude agent bằng bản tóm tắt |
+| Beta · Ít dùng | `implement-spec` | Triển khai spec | Beta · Gọi tay | Biến spec và ticket thành một PR duy nhất |
+| Beta · Ít dùng | `loop-me` | Đặc tả các vòng lặp của tôi | Beta · Gọi tay | Biến vòng lặp đời sống thành workflow spec |
+| Beta · Ít dùng | `retro` | Nhìn lại phiên code | Beta · Gọi tay | Đề xuất cải thiện môi trường agent sau mỗi phiên |
+| Beta · Ít dùng | `setup-ts-deep-modules` | Thiết lập deep module TypeScript | Beta · Gọi tay | Ép import qua entry point bằng dependency-cruiser |
+| Beta · Ít dùng | `writing-beats` | Viết theo nhịp nội dung | Beta · Gọi tay | Xây bài từng beat theo đường đi do người dùng chọn |
+| Beta · Ít dùng | `writing-fragments` | Khai thác mảnh viết | Beta · Gọi tay | Thu thập nguyên liệu viết mà chưa áp cấu trúc |
+| Beta · Ít dùng | `writing-shape` | Tạo hình bài viết | Beta · Gọi tay | Biến đống nguyên liệu thành bài theo từng block |
+| Beta · Ít dùng | `git-guardrails-claude-code` | Hàng rào Git cho Claude Code | Ít dùng · Tự gọi | Chặn lệnh Git nguy hiểm trước khi chạy |
+| Beta · Ít dùng | `migrate-to-shoehorn` | Chuyển test sang Shoehorn | Ít dùng · Tự gọi | Thay TypeScript assertion bằng dữ liệu test một phần |
+| Beta · Ít dùng | `scaffold-exercises` | Dựng khung bài tập | Ít dùng · Tự gọi | Tạo cấu trúc course exercise đúng lint |
+| Beta · Ít dùng | `setup-pre-commit` | Thiết lập pre-commit | Ít dùng · Tự gọi | Cài Husky, lint-staged, Prettier, typecheck và test |
 
 # Engineering — Kỹ thuật phần mềm
 
@@ -1621,6 +1628,7 @@ function openSkillFromMap(name){
   activeGroup="All";
   search.value="";
   for(const tab of document.querySelectorAll("#tabs .tab"))tab.classList.toggle("active",tab.dataset.group==="All");
+  renderStartHint();
   applyFilters();
   expandSkill(name);
   const row=rows.querySelector(`tr[data-name="${name}"]`);
@@ -1628,11 +1636,27 @@ function openSkillFromMap(name){
   history.replaceState(null,"",`#skill-${encodeURIComponent(name)}`);
   requestAnimationFrame(()=>requestAnimationFrame(()=>row.scrollIntoView({behavior,block:"center"})))
 }
+const GROUP_STARTS={"Bắt đầu":"setup-matt-pocock-skills","Luồng chính":"grill-with-docs","Định hình":"wayfinder","Bảo trì":"improve-codebase-architecture","Năng suất":"grill-me","Tham chiếu":"codebase-design"};
+const startHint=document.getElementById("startHint");
+function renderStartHint(){
+  const name=GROUP_STARTS[activeGroup];
+  startHint.hidden=!name;
+  if(!name)return;
+  startHint.innerHTML="";
+  startHint.append("Bắt đầu nhóm này với ");
+  const link=document.createElement("b");
+  link.textContent=name;
+  startHint.append(link);
+  const skill=overview.find(item=>item.name===name);
+  if(skill)startHint.append(` — ${skill.vi}`)
+}
 for(const tab of document.querySelectorAll("#tabs .tab"))tab.addEventListener("click",()=>{
   activeGroup=tab.dataset.group;
   for(const item of document.querySelectorAll("#tabs .tab"))item.classList.toggle("active",item===tab);
+  renderStartHint();
   applyFilters()
 });
+renderStartHint();
 search.addEventListener("input",applyFilters);
 const hashName=decodeURIComponent(location.hash.replace("#skill-",""));
 applyFilters();
@@ -1713,10 +1737,13 @@ window.addEventListener("resize",()=>{if(tipTarget)hideTip()});
   document.getElementById("skillNavCount").textContent=String(total);
   document.getElementById("flowNavCount").textContent=String(total);
   const specs=[
-    {group:"Engineering",label:"Engineering",sub:"Công việc code hằng ngày"},
-    {group:"Productivity",label:"Productivity",sub:"Quy trình ngoài code"},
-    {group:"In progress",label:"Beta",sub:"Thử nghiệm, chưa ổn định"},
-    {group:"Misc",label:"Misc",sub:"Giữ lại nhưng ít dùng"}
+    {group:"Bắt đầu",label:"01 · Bắt đầu",sub:"Cài một lần rồi biết đường đi",start:"setup-matt-pocock-skills"},
+    {group:"Luồng chính",label:"02 · Luồng chính",sub:"Xương sống ý tưởng đến ship, theo thứ tự",start:"grill-with-docs"},
+    {group:"Định hình",label:"03 · Định hình",sub:"Khám phá câu hỏi mở, đẻ quyết định nạp vào luồng",start:"wayfinder"},
+    {group:"Bảo trì",label:"04 · Bảo trì",sub:"Giữ codebase và issue khoẻ, đẻ việc cho luồng",start:"improve-codebase-architecture"},
+    {group:"Năng suất",label:"05 · Năng suất",sub:"Workflow cho người, không liên quan code",start:"grill-me"},
+    {group:"Tham chiếu",label:"06 · Tham chiếu",sub:"Lớp tái dùng mà skill khác gọi tới",start:"codebase-design"},
+    {group:"Beta · Ít dùng",label:"07 · Beta · Ít dùng",sub:"Thử nghiệm và skill giữ lại nhưng ít dùng",start:""}
   ];
   const childByName=new Map();
   const openArrow=(group,open)=>{
@@ -1752,6 +1779,11 @@ window.addEventListener("resize",()=>{if(tipTarget)hideTip()});
       child.innerHTML='<span class="nav-mark">·</span><span class="nav-order"></span><span class="nav-title"></span>';
       child.querySelector(".nav-order").textContent=skill.name;
       child.querySelector(".nav-title").textContent=skill.vi;
+      if(skill.name===spec.start){
+        child.classList.add("start");
+        child.querySelector(".nav-mark").textContent="★";
+        child.title=`Bắt đầu với ${skill.name} — ${skill.vi}`
+      }
       child.addEventListener("click",()=>{
         openSkillFromMap(skill.name);
         if(mobile.matches)setOpen(false)
